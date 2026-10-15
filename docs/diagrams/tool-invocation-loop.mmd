@@ -1,0 +1,19 @@
+flowchart TD
+    Query[User query and session_id] --> Entry[Load SDK session and enter Runner]
+    Entry --> Reason[LLM reasoning and tool selection]
+    Reason --> Select{Tool needed?}
+    Select -->|No| Answer[Final model answer]
+    Select -->|Yes| Call[MCP tools/call with JSON Schema arguments]
+    Call --> Server[Selected filesystem, Tavily, or Open-Meteo server]
+    Server --> Result{Valid tool result?}
+    Result -->|Yes| Append[Append real result to agent context]
+    Result -->|Execution or protocol failure| Error[Sanitized tool failure or handled HTTP error]
+    Append --> Synthesis[LLM synthesis using results]
+    Error -->|Recoverable tool failure| Synthesis
+    Error -->|Unhandled provider or protocol error| Safe[Safe HTTP error / stream error event]
+    Synthesis --> More{Another tool needed?}
+    More -->|Yes: repeat reasoning| Reason
+    More -->|No| Answer
+    Answer --> Store[SDK saves conversation items]
+    Store --> Response[Return response to caller]
+    Reason -.->|Transient model failure: at most two retries| Reason

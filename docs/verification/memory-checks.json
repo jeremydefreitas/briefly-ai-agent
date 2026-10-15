@@ -1,0 +1,208 @@
+{
+  "timestamp": "2026-10-13T05:50:48.285491+00:00",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "method": "Actual FastAPI /chat route via in-process HTTP; live NVIDIA model and real MCP servers. The callback wrapper only records events. All five requests share one application lifespan.",
+  "server_status_before_checks": [
+    {
+      "name": "filesystem",
+      "status": "connected",
+      "tool_count": 13
+    },
+    {
+      "name": "tavily",
+      "status": "connected",
+      "tool_count": 2,
+      "mode": "keyless"
+    }
+  ],
+  "checks": [
+    {
+      "check": "memory-setup",
+      "query": "Remember my project codename is Cedar.",
+      "session_id": "verification-memory-a",
+      "http_status": 200,
+      "body": {
+        "response": "Got it. Project codename: **Cedar**. What would you like to do next?"
+      },
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-13T05:50:24.958736+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:50:24.961864+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:50:25.934625+00:00"
+        }
+      ],
+      "outcome": "passed",
+      "review": "Acknowledged Cedar in session A without tools."
+    },
+    {
+      "check": "memory-recall",
+      "query": "What is my project codename?",
+      "session_id": "verification-memory-a",
+      "http_status": 200,
+      "body": {
+        "response": "Your project codename is **Cedar**."
+      },
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-13T05:50:25.937494+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:50:25.940081+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:50:27.009391+00:00"
+        }
+      ],
+      "outcome": "passed",
+      "review": "Recalled Cedar in a second request using session A, without tools."
+    },
+    {
+      "check": "session-isolation",
+      "query": "What is my project codename?",
+      "session_id": "verification-memory-b",
+      "http_status": 200,
+      "body": {
+        "response": "I don't have access to information about your project codename. Could you provide more context about what project you're referring to, or check if there are any project files in your data directory that might contain this information?"
+      },
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-13T05:50:27.013817+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:50:27.017439+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:50:34.785935+00:00"
+        }
+      ],
+      "outcome": "passed",
+      "review": "Session B did not inherit Cedar and stated it lacked the project codename."
+    },
+    {
+      "check": "missing-file",
+      "query": "Read missing-verification-file.txt.",
+      "session_id": "verification-recovery",
+      "http_status": 200,
+      "body": {
+        "response": "The file `missing-verification-file.txt` does not exist in the data directory. Would you like me to check what files are available in that directory, or did you mean a different file path?"
+      },
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-13T05:50:34.790761+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:50:34.794432+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:50:37.602570+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running read_text_file.",
+          "timestamp": "2026-10-13T05:50:37.603272+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "tool_error",
+          "message": "filesystem: read_text_file returned an error.",
+          "timestamp": "2026-10-13T05:50:37.607390+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:50:37.609538+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:50:39.857584+00:00"
+        }
+      ],
+      "outcome": "passed",
+      "review": "Real read_text_file returned a tool error; the agent reported the missing file without inventing content."
+    },
+    {
+      "check": "recovery",
+      "query": "Read notes.txt and quote its first line.",
+      "session_id": "verification-recovery",
+      "http_status": 200,
+      "body": {
+        "response": "\"Assignment 1 workspace\""
+      },
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-13T05:50:39.861018+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:50:39.864513+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:50:47.125766+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running read_text_file.",
+          "timestamp": "2026-10-13T05:50:47.127290+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: read_text_file completed.",
+          "timestamp": "2026-10-13T05:50:47.169781+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:50:47.172207+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:50:48.284465+00:00"
+        }
+      ],
+      "outcome": "passed",
+      "review": "In the same session after the tool error, real read_text_file succeeded and the agent quoted the correct first line of notes.txt."
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "timestamp": "2026-10-13T06:05:08.523220+00:00",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "method": "Live NVIDIA model via actual /chat route and real stdio MCP transport. Fault server exists only in this verification app instance. No production server/config is modified.",
+  "checks": [
+    {
+      "mode": "invalid-json",
+      "stage": "fault",
+      "query": "Call fault_probe to get the test service status. If it fails, explain that you could not retrieve the status.",
+      "session_id": "verification-invalid-json",
+      "http_status": 502,
+      "body": {
+        "detail": "The agent could not complete the request."
+      },
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-13T06:05:08.852356+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T06:05:08.857626+00:00"
+        }
+      ],
+      "outcome": "inconclusive",
+      "provider_errors": [
+        {
+          "status_code": 500,
+          "message": "Internal server error"
+        }
+      ],
+      "review": "Safe HTTP 502 observed. Initial follow-up also failed; this does not establish successful live recovery. Provider retry later returned NVIDIA HTTP 500 before the fault tool was invoked, so attribution to MCP/session handling is not established."
+    },
+    {
+      "mode": "invalid-json",
+      "stage": "recovery",
+      "query": "Read notes.txt using the filesystem tool and quote its first line.",
+      "session_id": "verification-invalid-json",
+      "http_status": 200,
+      "body": {
+        "response": "The first line of `notes.txt` is:\n\n> **Assignment 1 workspace**"
+      },
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-13T06:05:09.342553+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T06:05:09.346302+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T06:05:12.894063+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running read_text_file.",
+          "timestamp": "2026-10-13T06:05:12.895285+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: read_text_file completed.",
+          "timestamp": "2026-10-13T06:05:12.935058+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T06:05:12.937265+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T06:05:13.707083+00:00"
+        }
+      ],
+      "outcome": "passed",
+      "provider_errors": [],
+      "review": "Real filesystem read_text_file completed in the same session and returned the correct sample first line."
+    }
+  ]
+}

@@ -1,0 +1,521 @@
+{
+  "timestamp": "2026-10-15T03:40:42.879237+00:00",
+  "url": "https://briefly-2ez6etscva-uw.a.run.app",
+  "method": "Public HTTP; live NVIDIA inference and actual MCP servers; no mocked responses.",
+  "checks": [
+    {
+      "name": "memory-store",
+      "query": "Remember that my project codename is Cedar-4ae80a22f9. Acknowledge briefly. No tools needed.",
+      "session_id": "final-memory-4ae80a22f9",
+      "started_at": "2026-10-15T03:40:55.192989+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 1.232431,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T03:40:55.228153+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:40:55.241373+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:40:56.400262+00:00"
+        },
+        {
+          "type": "response",
+          "response": "Got it — Cedar-4ae80a22f9 noted. What’s next?",
+          "message": "Response ready."
+        }
+      ],
+      "response": "Got it — Cedar-4ae80a22f9 noted. What’s next?",
+      "assessment": "passed"
+    },
+    {
+      "name": "memory-recall",
+      "query": "What is my project codename? Answer briefly.",
+      "session_id": "final-memory-4ae80a22f9",
+      "started_at": "2026-10-15T03:40:56.425980+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 1.65641,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T03:40:56.462699+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:40:56.470443+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:40:58.055721+00:00"
+        },
+        {
+          "type": "response",
+          "response": "Cedar-4ae80a22f9.",
+          "message": "Response ready."
+        }
+      ],
+      "response": "Cedar-4ae80a22f9.",
+      "assessment": "passed"
+    },
+    {
+      "name": "memory-isolation",
+      "query": "What is my project codename? If I have not told you, say that you do not know.",
+      "session_id": "final-isolated-4ae80a22f9",
+      "started_at": "2026-10-15T03:40:58.083017+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 2.141357,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T03:40:58.114776+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:40:58.121285+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:41:00.198538+00:00"
+        },
+        {
+          "type": "response",
+          "response": "I do not know your project codename, as you haven't shared it with me in this conversation.",
+          "message": "Response ready."
+        }
+      ],
+      "response": "I do not know your project codename, as you haven't shared it with me in this conversation.",
+      "assessment": "passed"
+    },
+    {
+      "name": "no-tool",
+      "query": "What is 17 times 19? Answer directly with only the number.",
+      "session_id": "final-math-4ae80a22f9",
+      "started_at": "2026-10-15T03:41:00.225470+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 12.452429,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T03:41:11.240000+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:41:11.254882+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:41:12.639422+00:00"
+        },
+        {
+          "type": "response",
+          "response": "323",
+          "message": "Response ready."
+        }
+      ],
+      "response": "323",
+      "assessment": "passed"
+    },
+    {
+      "name": "weather",
+      "query": "What is the weather in Los Angeles, California today? Resolve the location, then retrieve the weather. Include Fahrenheit units and the local date/time. Keep it under 100 words.",
+      "session_id": "final-weather-4ae80a22f9",
+      "started_at": "2026-10-15T03:41:12.678394+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 18.392748,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T03:41:12.717939+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:41:12.726265+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:41:14.679545+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "open-meteo: running geocoding.",
+          "timestamp": "2026-10-15T03:41:14.680894+00:00",
+          "server": "open-meteo",
+          "tool": "geocoding"
+        },
+        {
+          "type": "tool_end",
+          "message": "open-meteo: geocoding completed.",
+          "timestamp": "2026-10-15T03:41:15.378908+00:00",
+          "server": "open-meteo",
+          "tool": "geocoding"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:41:15.386104+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:41:28.483125+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "open-meteo: running weather_forecast.",
+          "timestamp": "2026-10-15T03:41:28.484720+00:00",
+          "server": "open-meteo",
+          "tool": "weather_forecast"
+        },
+        {
+          "type": "tool_end",
+          "message": "open-meteo: weather_forecast completed.",
+          "timestamp": "2026-10-15T03:41:29.134461+00:00",
+          "server": "open-meteo",
+          "tool": "weather_forecast"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:41:29.142698+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:41:31.045207+00:00"
+        },
+        {
+          "type": "response",
+          "response": "Current weather in Los Angeles, CA (as of 2026-10-14 8:30 PM PDT): 65.7 °F, 76 % humidity, light wind 3.9 mph, clear skies (code 0). Today's high/low: 83.8 °F / 53.7 °F.",
+          "message": "Response ready."
+        }
+      ],
+      "response": "Current weather in Los Angeles, CA (as of 2026-10-14 8:30 PM PDT): 65.7 °F, 76 % humidity, light wind 3.9 mph, clear skies (code 0). Today's high/low: 83.8 °F / 53.7 °F.",
+      "assessment": "passed"
+    },
+    {
+      "name": "search-and-save",
+      "query": "Search for official Model Context Protocol documentation, then save a summary of at most 120 words with source URLs to cloud-mcp-summary-4ae80a22f9.txt. Use at most two searches. Prefer modelcontextprotocol.io and github.com/modelcontextprotocol. Label any third-party mirrors as unofficial; do not group them under official sources. Do not invent links or say a page was read unless a tool read it. Confirm the filename only after the save succeeds.",
+      "session_id": "final-research-4ae80a22f9",
+      "started_at": "2026-10-15T03:41:31.071683+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 27.220606,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T03:41:31.108407+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:41:31.115255+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:41:40.545043+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "tavily: running tavily_search.",
+          "timestamp": "2026-10-15T03:41:40.546835+00:00",
+          "server": "tavily",
+          "tool": "tavily_search"
+        },
+        {
+          "type": "tool_end",
+          "message": "tavily: tavily_search completed.",
+          "timestamp": "2026-10-15T03:41:42.238744+00:00",
+          "server": "tavily",
+          "tool": "tavily_search"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:41:42.248142+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:41:48.303738+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "tavily: running tavily_extract.",
+          "timestamp": "2026-10-15T03:41:48.305850+00:00",
+          "server": "tavily",
+          "tool": "tavily_extract"
+        },
+        {
+          "type": "tool_end",
+          "message": "tavily: tavily_extract completed.",
+          "timestamp": "2026-10-15T03:41:48.618308+00:00",
+          "server": "tavily",
+          "tool": "tavily_extract"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:41:48.627642+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:41:56.905559+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running write_file.",
+          "timestamp": "2026-10-15T03:41:56.906912+00:00",
+          "server": "filesystem",
+          "tool": "write_file"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: write_file completed.",
+          "timestamp": "2026-10-15T03:41:57.172294+00:00",
+          "server": "filesystem",
+          "tool": "write_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:41:57.180273+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:41:58.264737+00:00"
+        },
+        {
+          "type": "response",
+          "response": "Saved to cloud-mcp-summary-4ae80a22f9.txt",
+          "message": "Response ready."
+        }
+      ],
+      "response": "Saved to cloud-mcp-summary-4ae80a22f9.txt",
+      "assessment": "passed"
+    },
+    {
+      "name": "read-saved-summary",
+      "query": "Read cloud-mcp-summary-4ae80a22f9.txt and return its exact contents so I can inspect the summary and source labels.",
+      "session_id": "final-research-4ae80a22f9",
+      "started_at": "2026-10-15T03:41:58.293403+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 11.275065,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T03:41:58.328322+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:41:58.336363+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:42:00.980771+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running read_text_file.",
+          "timestamp": "2026-10-15T03:42:00.981964+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: read_text_file completed.",
+          "timestamp": "2026-10-15T03:42:00.987157+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:42:00.996032+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:42:09.542634+00:00"
+        },
+        {
+          "type": "response",
+          "response": "Model Context Protocol (MCP) is an open-source standard for connecting AI applications to external data sources, tools, and workflows. It uses JSON-RPC 2.0 for communication between hosts (LLM applications), clients (connectors), and servers (context/capability providers). Key features: user consent/control, data privacy, and broad ecosystem support (Claude, ChatGPT, VS Code, Cursor). The protocol enables agents to access calendars, databases, design tools, and more. Official documentation at modelcontextprotocol.io (version 2026-07-28); specification and schema at github.com/modelcontextprotocol/modelcontextprotocol.\n\nSources:\n- https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro\n- https://github.com/modelcontextprotocol/modelcontextprotocol",
+          "message": "Response ready."
+        }
+      ],
+      "response": "Model Context Protocol (MCP) is an open-source standard for connecting AI applications to external data sources, tools, and workflows. It uses JSON-RPC 2.0 for communication between hosts (LLM applications), clients (connectors), and servers (context/capability providers). Key features: user consent/control, data privacy, and broad ecosystem support (Claude, ChatGPT, VS Code, Cursor). The protocol enables agents to access calendars, databases, design tools, and more. Official documentation at modelcontextprotocol.io (version 2026-07-28); specification and schema at github.com/modelcontextprotocol/modelcontextprotocol.\n\nSources:\n- https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro\n- https://github.com/modelcontextprotocol/modelcontextprotocol",
+      "assessment": "passed"
+    },
+    {
+      "name": "missing-file",
+      "query": "Read missing-4ae80a22f9.txt with the filesystem tool. Do not create it. If it does not exist, explain the failure.",
+      "session_id": "final-recovery-4ae80a22f9",
+      "started_at": "2026-10-15T03:42:09.568928+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 10.386197,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T03:42:09.609759+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:42:09.632348+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:42:16.242623+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running read_text_file.",
+          "timestamp": "2026-10-15T03:42:16.243971+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "tool_error",
+          "message": "filesystem: read_text_file returned an error.",
+          "timestamp": "2026-10-15T03:42:16.247359+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:42:16.253700+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:42:19.930340+00:00"
+        },
+        {
+          "type": "response",
+          "response": "The file `missing-4ae80a22f9.txt` does not exist in `/app/data/`. The read operation failed with `ENOENT: no such file or directory`.",
+          "message": "Response ready."
+        }
+      ],
+      "response": "The file `missing-4ae80a22f9.txt` does not exist in `/app/data/`. The read operation failed with `ENOENT: no such file or directory`.",
+      "assessment": "passed"
+    },
+    {
+      "name": "recovery",
+      "query": "Now read notes.txt and quote its first line.",
+      "session_id": "final-recovery-4ae80a22f9",
+      "started_at": "2026-10-15T03:42:19.956683+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 2.400297,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T03:42:19.989130+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:42:19.996905+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:42:20.886383+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running read_text_file.",
+          "timestamp": "2026-10-15T03:42:20.887602+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: read_text_file completed.",
+          "timestamp": "2026-10-15T03:42:20.894621+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:42:20.900904+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:42:22.331075+00:00"
+        },
+        {
+          "type": "response",
+          "response": "The first line of `notes.txt` is:\n\n> **Assignment 1 workspace**",
+          "message": "Response ready."
+        }
+      ],
+      "response": "The first line of `notes.txt` is:\n\n> **Assignment 1 workspace**",
+      "assessment": "passed"
+    }
+  ],
+  "server_status": {
+    "servers": [
+      {
+        "name": "filesystem",
+        "status": "connected",
+        "tool_count": 13
+      },
+      {
+        "name": "tavily",
+        "status": "connected",
+        "tool_count": 2,
+        "mode": "keyless"
+      },
+      {
+        "name": "open-meteo",
+        "status": "connected",
+        "tool_count": 2
+      }
+    ]
+  },
+  "source_review": {
+    "checked_on": "2026-10-14",
+    "urls": [
+      {
+        "url": "https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro",
+        "outcome": "Opened successfully; official MCP documentation."
+      },
+      {
+        "url": "https://github.com/modelcontextprotocol/modelcontextprotocol",
+        "outcome": "Opened successfully; official specification and documentation repository."
+      }
+    ],
+    "limits": "This guided search run used only official sources and no mirror was mislabeled. It does not establish correctness of every claim in arbitrary generated briefings. Weather events demonstrate real geocoding/forecast calls and displayed units/time; exact API payloads are not exposed by the public stream."
+  }
+}

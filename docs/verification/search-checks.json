@@ -1,0 +1,189 @@
+{
+  "timestamp": "2026-10-13T05:46:49.662841+00:00",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "method": "In-process HTTP requests to the actual FastAPI /chat route; live NVIDIA inference and real MCP servers. The callback wrapper records activity without replacing results.",
+  "server_status_before_checks": [
+    {
+      "name": "filesystem",
+      "status": "connected",
+      "tool_count": 13
+    },
+    {
+      "name": "tavily",
+      "status": "connected",
+      "tool_count": 2,
+      "mode": "keyless"
+    }
+  ],
+  "checks": [
+    {
+      "check": "tavily-selection",
+      "query": "Search for official MCP documentation and cite sources.",
+      "session_id": "verification-tavily-selection",
+      "http_status": 200,
+      "body": {
+        "response": "Based on my search, here are the **official MCP (Model Context Protocol) documentation sources** with citations:\n\n## Primary Official Documentation\n\n| Resource | URL | Description |\n|----------|-----|-------------|\n| **Official Documentation Site** | <https://modelcontextprotocol.io> | Main documentation hub with guides, SDK docs, and client lists |\n| **Official Specification (Latest)** | <https://modelcontextprotocol.io/specification/latest> | Canonical protocol specification with JSON schema and SEPs |\n| **Specification (Versioned - 2026-07-28)** | <https://modelcontextprotocol.io/specification/2026-07-28> | Specific versioned spec with RFC2119 compliance keywords |\n| **SDK Documentation** | <https://modelcontextprotocol.io/docs/2026-07-28/sdk> | Official SDKs for TypeScript, Python, C#, Go, Java, Rust, Swift, Ruby, PHP |\n\n## Source Repositories (GitHub)\n\n| Repository | URL | Description |\n|------------|-----|-------------|\n| **Main Specification Repo** | <https://github.com/modelcontextprotocol/modelcontextprotocol> | Schema source (`schema.ts` + `schema.json`), SEPs, and docs |\n| **Organization Home** | <https://github.com/modelcontextprotocol> | All official SDKs, reference servers, and related projects |\n| **TypeScript SDK** | <https://github.com/modelcontextprotocol/typescript-sdk> | Official TypeScript SDK |\n| **Python SDK** | <https://github.com/modelcontextprotocol/python-sdk> | Official Python SDK |\n\n## Key Facts from Official Sources\n\n- **Created by**: David Soria Parra (@dsp) and Justin Spahr-Summers (@jspahrsummers) at Anthropic (November 2024)\n- **Hosted by**: The Linux Foundation (open source, community contributions welcome)\n- **Protocol basis**: JSON-RPC 2.0 messages between Hosts (LLM apps), Clients (connectors), and Servers (context/capability providers)\n- **Inspired by**: Language Server Protocol (LSP)\n- **License**: MIT License\n\n## Official SDKs (Tier 1 - Full Feature Support)\n- **TypeScript**: `npm install @modelcontextprotocol/sdk`\n- **Python**: `uv add \"mcp[cli]\"` or `pip install \"mcp[cli]\"`\n- **C#/.NET**: `dotnet add package ModelContextProtocol`\n- **Go**: `go get github.com/modelcontextprotocol/go-sdk`\n\nThe official documentation is built with Mintlify and the schema is defined in TypeScript first, then made available as JSON Schema for wider compatibility."
+      },
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-13T05:45:43.873284+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:45:43.876713+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:45:49.132702+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "tavily: running tavily_search.",
+          "timestamp": "2026-10-13T05:45:49.134482+00:00",
+          "server": "tavily",
+          "tool": "tavily_search"
+        },
+        {
+          "type": "tool_end",
+          "message": "tavily: tavily_search completed.",
+          "timestamp": "2026-10-13T05:45:51.333127+00:00",
+          "server": "tavily",
+          "tool": "tavily_search"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:45:51.338467+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:46:25.188231+00:00"
+        }
+      ],
+      "outcome": "passed",
+      "completed_tools": [
+        [
+          "tavily",
+          "tavily_search"
+        ]
+      ],
+      "source_quality": "needs improvement: an alternative documentation mirror was included with official sources in the saved file; the separately cited SDK URL could not be verified by the review browser.",
+      "review": "Observed successful tavily_search and a model synthesis with relevant official documentation URLs. Selected official specification and introduction links were independently opened successfully; this is not an audit of every factual claim or cited URL."
+    },
+    {
+      "check": "multi-step",
+      "query": "Search for official MCP documentation, then save a short summary and source URLs to verification-summary.txt.",
+      "session_id": "verification-multi-step",
+      "http_status": 200,
+      "body": {
+        "response": "Done. I've saved a summary of the official MCP documentation to `verification-summary.txt` with the key official source URLs:\n\n- **Official docs**: https://modelcontextprotocol.io/\n- **Getting Started guide**: https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro\n- **Specification (2026-07-28)**: https://modelcontextprotocol.io/specification/2026-07-28\n- **GitHub org**: https://github.com/modelcontextprotocol\n- **Main repo**: https://github.com/modelcontextprotocol/modelcontextprotocol\n- **Alt docs mirror**: https://modelcontextprotocol.info/docs"
+      },
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-13T05:46:25.193080+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:46:25.196966+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:46:26.722971+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "tavily: running tavily_search.",
+          "timestamp": "2026-10-13T05:46:26.724349+00:00",
+          "server": "tavily",
+          "tool": "tavily_search"
+        },
+        {
+          "type": "tool_end",
+          "message": "tavily: tavily_search completed.",
+          "timestamp": "2026-10-13T05:46:28.110355+00:00",
+          "server": "tavily",
+          "tool": "tavily_search"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:46:28.115346+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:46:40.704718+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running write_file.",
+          "timestamp": "2026-10-13T05:46:40.705955+00:00",
+          "server": "filesystem",
+          "tool": "write_file"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: write_file completed.",
+          "timestamp": "2026-10-13T05:46:40.748558+00:00",
+          "server": "filesystem",
+          "tool": "write_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:46:40.750880+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:46:49.636540+00:00"
+        }
+      ],
+      "outcome": "passed",
+      "completed_tools": [
+        [
+          "tavily",
+          "tavily_search"
+        ],
+        [
+          "filesystem",
+          "write_file"
+        ]
+      ],
+      "source_quality": "needs improvement: an alternative documentation mirror was included with official sources in the saved file; the separately cited SDK URL could not be verified by the review browser.",
+      "review": "Observed tavily_search followed by write_file and final synthesis. Independently inspected data/verification-summary.txt: it contains a substantive MCP summary and source URLs and matches the saved evidence snapshot. The tool-chain criterion passed; source labeling needs improvement."
+    }
+  ],
+  "saved_file": {
+    "path": "data/verification-summary.txt",
+    "exists": true,
+    "content": "MCP (Model Context Protocol) - Official Documentation Summary\n\nOverview:\nThe Model Context Protocol (MCP) is an open-source standard for connecting AI applications to external systems, developed by Anthropic and now maintained under the Linux Foundation's Agentic AI Foundation. It enables AI applications (like Claude, ChatGPT, VS Code, Cursor) to connect to data sources, tools, and workflows through a standardized protocol - often described as \"the USB-C of AI.\"\n\nKey Features:\n- Standardized protocol using JSON-RPC 2.0 messages\n- Enables seamless integration between LLM applications and external data sources/tools\n- Supports clients (AI applications), servers (context/capability providers), and hosts\n- Vendor-neutral, open specification\n- Supports bidirectional, message-driven communication\n- Capability negotiation per request\n\nOfficial Sources:\n1. Official Documentation Site: https://modelcontextprotocol.io/\n2. Official Documentation (Getting Started): https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro\n3. Official Specification (2026-07-28): https://modelcontextprotocol.io/specification/2026-07-28\n4. GitHub Organization: https://github.com/modelcontextprotocol\n5. Main Specification Repository: https://github.com/modelcontextprotocol/modelcontextprotocol\n6. Alternative Documentation Mirror: https://modelcontextprotocol.info/docs\n\nArchitecture:\n- Hosts: LLM applications that initiate connections\n- Clients: Connectors within the host application\n- Servers: Services that provide context and capabilities (tools, resources, prompts)\n\nSDKs Available:\n- TypeScript (most mature, web/full-stack development)\n- Python (data engineering, ML pipelines)\n- C# (maintained with Microsoft)\n- Visual Inspector tool for testing MCP servers"
+  },
+  "source_checks": [
+    {
+      "url": "https://modelcontextprotocol.io/specification/2026-07-28",
+      "result": "opened successfully; official specification"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro",
+      "result": "opened successfully; official introduction"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/docs/2026-07-28/sdk",
+      "result": "review browser could not access it; validity inconclusive"
+    },
+    {
+      "url": "https://modelcontextprotocol.info/docs",
+      "result": "alternative documentation site; should be distinguished from official sources"
+    }
+  ]
+}

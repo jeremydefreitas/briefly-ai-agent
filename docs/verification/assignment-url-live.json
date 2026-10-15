@@ -1,0 +1,113 @@
+{
+  "url": "https://csci599-a1-briefly-2ez6etscva-uw.a.run.app",
+  "timestamp": "2026-10-15T05:22:30.634192+00:00",
+  "revision": "csci599-a1-briefly-00001-clb",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "checks": [
+    {
+      "name": "direct",
+      "query": "What is 17 times 19? Answer with only the number; no tools needed.",
+      "http_status": 200,
+      "elapsed_seconds": 0.88,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:22:31.132841+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:22:31.148196+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:22:31.948528+00:00"
+        },
+        {
+          "type": "response",
+          "response": "323",
+          "message": "Response ready."
+        }
+      ],
+      "response": "323",
+      "passed": true
+    },
+    {
+      "name": "filesystem",
+      "query": "Read notes.txt using the filesystem tool and quote its first line. Do not modify files.",
+      "http_status": 200,
+      "elapsed_seconds": 2.99,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:22:32.015688+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:22:32.022795+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:22:33.283924+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running read_text_file.",
+          "timestamp": "2026-10-15T05:22:33.285340+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: read_text_file completed.",
+          "timestamp": "2026-10-15T05:22:33.450924+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:22:33.457998+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:22:34.924653+00:00"
+        },
+        {
+          "type": "response",
+          "response": "The first line of `notes.txt` is:\n\n> Assignment 1 workspace",
+          "message": "Response ready."
+        }
+      ],
+      "response": "The first line of `notes.txt` is:\n\n> Assignment 1 workspace",
+      "passed": true
+    }
+  ],
+  "frontend_status": 200,
+  "mcp_status": {
+    "servers": [
+      {
+        "name": "filesystem",
+        "status": "connected",
+        "tool_count": 13
+      },
+      {
+        "name": "tavily",
+        "status": "connected",
+        "tool_count": 2,
+        "mode": "keyless"
+      },
+      {
+        "name": "open-meteo",
+        "status": "connected",
+        "tool_count": 2
+      }
+    ]
+  }
+}

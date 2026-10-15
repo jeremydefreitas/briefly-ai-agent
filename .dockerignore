@@ -1,0 +1,16 @@
+# Allow only the files used by the Dockerfile into the build context.
+**
+!Dockerfile
+!.dockerignore
+!requirements.txt
+!package.json
+!package-lock.json
+!main.py
+!agent_client.py
+!mcp_client.py
+!activity.py
+!mcp_servers.json
+!static/
+!static/**
+!data/
+!data/notes.txt

@@ -1,0 +1,36 @@
+flowchart TB
+    subgraph Local[Local development]
+        Env[Ignored .env]
+        Python[Python app or local Docker container]
+        Source[Source and pinned dependencies]
+        Build[Multi-stage Docker build: Linux AMD64]
+        Ignore[.dockerignore excludes credentials and local artifacts]
+        Config[Non-secret endpoint and model settings]
+        Push[Docker push with gcloud credential helper]
+        Env -->|load_dotenv| Python
+        Source --> Build
+        Ignore --> Build
+        Build --> Push
+        Env -->|Endpoint and model only| Config
+    end
+    subgraph GCP[Google Cloud: jd-assignment1-599 / us-west1]
+        Registry[Artifact Registry: assignment-1]
+        Secrets[Secret Manager: versioned NIM key]
+        Identity[Dedicated runtime service account]
+        subgraph Runtime[Cloud Run: briefly]
+            Service[Public service: non-root container]
+            App[FastAPI and three MCP subprocesses]
+            Temporary[SDK session memory and data files: ephemeral]
+            Service -->|PORT supplied by Cloud Run| App
+            App --- Temporary
+        end
+        Registry -->|Immutable image digest| Service
+        Identity -->|Secret Accessor on the named secret| Secrets
+        Secrets -->|Pinned version becomes OPENAI_API_KEY| Service
+    end
+    Env -->|Key bytes through stdin| Secrets
+    Push --> Registry
+    Config -->|Environment variables| Service
+    Python <-->|HTTPS| NIM[NVIDIA NIM cloud backend]
+    App <-->|HTTPS| NIM
+    Service --> URL[Public HTTPS live URL]

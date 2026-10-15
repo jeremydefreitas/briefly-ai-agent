@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-10-13T06:10:00.976277+00:00",
+  "method": "Three deterministic unittest cases execute real fault-server stdio through the SDK and actual /chat route. Only external model HTTP responses are mocked. The same session receives a filesystem recovery request after each fault.",
+  "command": ".venv/bin/python -m unittest discover -s tests -p test_mcp_faults.py -v",
+  "checks": [
+    {
+      "mode": "disconnect",
+      "outcome": "passed",
+      "fault_http_status": 200,
+      "observed": "Real fault_probe call emitted tool_error; the SDK delivered the sanitized failure to the controlled model. The response did not claim a retrieved status.",
+      "recovery_http_status": 200,
+      "recovery_observed": "Real filesystem read_text_file returned the correct first line of notes.txt in the same session."
+    },
+    {
+      "mode": "invalid-json",
+      "outcome": "passed",
+      "fault_http_status": 200,
+      "observed": "Real fault_probe call emitted tool_error; the SDK delivered the sanitized failure to the controlled model. The response did not claim a retrieved status.",
+      "recovery_http_status": 200,
+      "recovery_observed": "Real filesystem read_text_file returned the correct first line of notes.txt in the same session."
+    },
+    {
+      "mode": "invalid-schema",
+      "outcome": "passed",
+      "fault_http_status": 200,
+      "observed": "Real fault_probe call emitted tool_error; the SDK delivered the sanitized failure to the controlled model. The response did not claim a retrieved status.",
+      "recovery_http_status": 200,
+      "recovery_observed": "Real filesystem read_text_file returned the correct first line of notes.txt in the same session."
+    }
+  ],
+  "regression": {
+    "python_tests": 20,
+    "outcome": "passed",
+    "frontend_checks": "passed",
+    "compilation": "passed"
+  },
+  "live_evidence": [
+    "fault-checks-initial.json",
+    "fault-checks-provider-retry.json"
+  ],
+  "limitations": "Live disconnect and invalid-schema cases passed. Live invalid-JSON verification is inconclusive due to safe HTTP 502 responses and an independently observed upstream NVIDIA HTTP 500. Deterministic invalid-JSON handling/recovery passed. No automatic reconnection of an exited MCP server was tested."
+}

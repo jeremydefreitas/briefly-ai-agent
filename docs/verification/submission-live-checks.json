@@ -1,0 +1,518 @@
+{
+  "timestamp": "2026-10-15T05:29:23.276579+00:00",
+  "url": "https://csci599-a1-2ez6etscva-uw.a.run.app",
+  "method": "Public HTTP; live NVIDIA inference and actual MCP servers; no mocked responses.",
+  "checks": [
+    {
+      "name": "memory-store",
+      "query": "Remember that my project codename is Cedar-8889c048d9. Acknowledge briefly. No tools needed.",
+      "session_id": "final-memory-8889c048d9",
+      "started_at": "2026-10-15T05:29:23.439263+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 0.974241,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:29:23.477213+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:29:23.483855+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:29:24.384497+00:00"
+        },
+        {
+          "type": "response",
+          "response": "Acknowledged: Cedar-8889c048d9.",
+          "message": "Response ready."
+        }
+      ],
+      "response": "Acknowledged: Cedar-8889c048d9.",
+      "assessment": "pass"
+    },
+    {
+      "name": "memory-recall",
+      "query": "What is my project codename? Answer briefly.",
+      "session_id": "final-memory-8889c048d9",
+      "started_at": "2026-10-15T05:29:24.413857+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 1.056338,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:29:24.444730+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:29:24.451798+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:29:25.440845+00:00"
+        },
+        {
+          "type": "response",
+          "response": "Cedar-8889c048d9",
+          "message": "Response ready."
+        }
+      ],
+      "response": "Cedar-8889c048d9",
+      "assessment": "pass"
+    },
+    {
+      "name": "memory-isolation",
+      "query": "What is my project codename? If I have not told you, say that you do not know.",
+      "session_id": "final-isolated-8889c048d9",
+      "started_at": "2026-10-15T05:29:25.471189+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 5.693031,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:29:25.501976+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:29:25.508216+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:29:31.135510+00:00"
+        },
+        {
+          "type": "response",
+          "response": "I don't know your project codename — you haven't mentioned it in our conversation.",
+          "message": "Response ready."
+        }
+      ],
+      "response": "I don't know your project codename — you haven't mentioned it in our conversation.",
+      "assessment": "pass"
+    },
+    {
+      "name": "no-tool",
+      "query": "What is 17 times 19? Answer directly with only the number.",
+      "session_id": "final-math-8889c048d9",
+      "started_at": "2026-10-15T05:29:31.164986+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 1.192502,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:29:31.197534+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:29:31.204334+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:29:32.326700+00:00"
+        },
+        {
+          "type": "response",
+          "response": "323",
+          "message": "Response ready."
+        }
+      ],
+      "response": "323",
+      "assessment": "pass"
+    },
+    {
+      "name": "weather",
+      "query": "What is the weather in Los Angeles, California today? Resolve the location, then retrieve the weather. Include Fahrenheit units and the local date/time. Keep it under 100 words.",
+      "session_id": "final-weather-8889c048d9",
+      "started_at": "2026-10-15T05:29:32.358366+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 11.726479,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:29:32.413761+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:29:32.420976+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:29:33.302987+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "open-meteo: running geocoding.",
+          "timestamp": "2026-10-15T05:29:33.304464+00:00",
+          "server": "open-meteo",
+          "tool": "geocoding"
+        },
+        {
+          "type": "tool_end",
+          "message": "open-meteo: geocoding completed.",
+          "timestamp": "2026-10-15T05:29:34.013737+00:00",
+          "server": "open-meteo",
+          "tool": "geocoding"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:29:34.020243+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:29:37.604041+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "open-meteo: running weather_forecast.",
+          "timestamp": "2026-10-15T05:29:37.605570+00:00",
+          "server": "open-meteo",
+          "tool": "weather_forecast"
+        },
+        {
+          "type": "tool_end",
+          "message": "open-meteo: weather_forecast completed.",
+          "timestamp": "2026-10-15T05:29:38.248672+00:00",
+          "server": "open-meteo",
+          "tool": "weather_forecast"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:29:38.255297+00:00"
+        },
+        {
+          "type": "model_retry",
+          "message": "The model service failed temporarily. Retrying (1/2)…",
+          "timestamp": "2026-10-15T05:29:38.527776+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:29:44.056728+00:00"
+        },
+        {
+          "type": "response",
+          "response": "In Los Angeles, CA, it's currently 63.6°F under clear skies (weather code 0) as of 10:15 PM PDT on October 14, 2026. Light wind at 4.6 km/h and 62% humidity. Today's high was 83.8°F, low 53.7°F.",
+          "message": "Response ready."
+        }
+      ],
+      "response": "In Los Angeles, CA, it's currently 63.6°F under clear skies (weather code 0) as of 10:15 PM PDT on October 14, 2026. Light wind at 4.6 km/h and 62% humidity. Today's high was 83.8°F, low 53.7°F.",
+      "assessment": "pass"
+    },
+    {
+      "name": "search-and-save",
+      "query": "Search for official Model Context Protocol documentation, then save a summary of at most 120 words with source URLs to cloud-mcp-summary-8889c048d9.txt. Use at most two searches. Prefer modelcontextprotocol.io and github.com/modelcontextprotocol. Label any third-party mirrors as unofficial; do not group them under official sources. Do not invent links or say a page was read unless a tool read it. Confirm the filename only after the save succeeds.",
+      "session_id": "final-research-8889c048d9",
+      "started_at": "2026-10-15T05:29:44.085209+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 47.73756,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:29:44.115289+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:29:44.121632+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:29:57.241752+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "tavily: running tavily_search.",
+          "timestamp": "2026-10-15T05:29:57.243428+00:00",
+          "server": "tavily",
+          "tool": "tavily_search"
+        },
+        {
+          "type": "tool_end",
+          "message": "tavily: tavily_search completed.",
+          "timestamp": "2026-10-15T05:30:02.516662+00:00",
+          "server": "tavily",
+          "tool": "tavily_search"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:30:02.524490+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:30:06.019624+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "tavily: running tavily_search.",
+          "timestamp": "2026-10-15T05:30:06.021070+00:00",
+          "server": "tavily",
+          "tool": "tavily_search"
+        },
+        {
+          "type": "tool_end",
+          "message": "tavily: tavily_search completed.",
+          "timestamp": "2026-10-15T05:30:08.325330+00:00",
+          "server": "tavily",
+          "tool": "tavily_search"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:30:08.332101+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:30:13.434316+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running write_file.",
+          "timestamp": "2026-10-15T05:30:13.435993+00:00",
+          "server": "filesystem",
+          "tool": "write_file"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: write_file completed.",
+          "timestamp": "2026-10-15T05:30:13.449318+00:00",
+          "server": "filesystem",
+          "tool": "write_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:30:13.460904+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:30:31.793299+00:00"
+        },
+        {
+          "type": "response",
+          "response": "Saved summary to **cloud-mcp-summary-8889c048d9.txt**.",
+          "message": "Response ready."
+        }
+      ],
+      "response": "Saved summary to **cloud-mcp-summary-8889c048d9.txt**.",
+      "assessment": "pass"
+    },
+    {
+      "name": "read-saved-summary",
+      "query": "Read cloud-mcp-summary-8889c048d9.txt and return its exact contents so I can inspect the summary and source labels.",
+      "session_id": "final-research-8889c048d9",
+      "started_at": "2026-10-15T05:30:31.823801+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 7.925189,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:30:31.862175+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:30:31.871277+00:00"
+        },
+        {
+          "type": "model_retry",
+          "message": "The model service failed temporarily. Retrying (1/2)…",
+          "timestamp": "2026-10-15T05:30:32.321119+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:30:35.405417+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running read_text_file.",
+          "timestamp": "2026-10-15T05:30:35.407184+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: read_text_file completed.",
+          "timestamp": "2026-10-15T05:30:35.410720+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:30:35.419658+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:30:39.720859+00:00"
+        },
+        {
+          "type": "response",
+          "response": "The Model Context Protocol (MCP) is an open standard enabling AI applications to connect to external data sources, tools, and workflows via a unified interface. It uses JSON-RPC 2.0 for communication between hosts (LLM applications), clients (connectors), and servers (context/capability providers). Key principles include user consent/control and data privacy. The protocol is transport-agnostic, supports extensions, and defines capabilities for resources, tools, prompts, and sampling.\n\nOfficial sources:\n- Specification repo: https://github.com/modelcontextprotocol/modelcontextprotocol\n- Documentation site: https://modelcontextprotocol.io (includes spec versions 2025-06-18, 2026-07-28, getting-started guides, transports, extensions, registry)\n- Registry: registry.modelcontextprotocol.io\n\nThird-party mirrors (unofficial): Spring AI reference (spring.io), Latenode blog, aibuzz.blog, Cloudinary announcement, RocketReach profile.",
+          "message": "Response ready."
+        }
+      ],
+      "response": "The Model Context Protocol (MCP) is an open standard enabling AI applications to connect to external data sources, tools, and workflows via a unified interface. It uses JSON-RPC 2.0 for communication between hosts (LLM applications), clients (connectors), and servers (context/capability providers). Key principles include user consent/control and data privacy. The protocol is transport-agnostic, supports extensions, and defines capabilities for resources, tools, prompts, and sampling.\n\nOfficial sources:\n- Specification repo: https://github.com/modelcontextprotocol/modelcontextprotocol\n- Documentation site: https://modelcontextprotocol.io (includes spec versions 2025-06-18, 2026-07-28, getting-started guides, transports, extensions, registry)\n- Registry: registry.modelcontextprotocol.io\n\nThird-party mirrors (unofficial): Spring AI reference (spring.io), Latenode blog, aibuzz.blog, Cloudinary announcement, RocketReach profile.",
+      "assessment": "pass"
+    },
+    {
+      "name": "missing-file",
+      "query": "Read missing-8889c048d9.txt with the filesystem tool. Do not create it. If it does not exist, explain the failure.",
+      "session_id": "final-recovery-8889c048d9",
+      "started_at": "2026-10-15T05:30:39.750413+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 21.995129,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:30:39.786355+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:30:39.793178+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:30:59.817080+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running read_text_file.",
+          "timestamp": "2026-10-15T05:30:59.818459+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "tool_error",
+          "message": "filesystem: read_text_file returned an error.",
+          "timestamp": "2026-10-15T05:30:59.821445+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:30:59.829332+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:31:01.717045+00:00"
+        },
+        {
+          "type": "response",
+          "response": "The file `/app/data/missing-8889c048d9.txt` does not exist in the filesystem. The read operation failed with `ENOENT: no such file or directory`.",
+          "message": "Response ready."
+        }
+      ],
+      "response": "The file `/app/data/missing-8889c048d9.txt` does not exist in the filesystem. The read operation failed with `ENOENT: no such file or directory`.",
+      "assessment": "pass"
+    },
+    {
+      "name": "recovery",
+      "query": "Now read notes.txt and quote its first line.",
+      "session_id": "final-recovery-8889c048d9",
+      "started_at": "2026-10-15T05:31:01.746411+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 2.830042,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:31:01.777072+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:31:01.783842+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:31:02.748753+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running read_text_file.",
+          "timestamp": "2026-10-15T05:31:02.750065+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: read_text_file completed.",
+          "timestamp": "2026-10-15T05:31:02.752893+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:31:02.761935+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:31:04.547384+00:00"
+        },
+        {
+          "type": "response",
+          "response": "The first line of `notes.txt` is:\n\n**Assignment 1 workspace**",
+          "message": "Response ready."
+        }
+      ],
+      "response": "The first line of `notes.txt` is:\n\n**Assignment 1 workspace**",
+      "assessment": "pass"
+    }
+  ],
+  "server_status": {
+    "servers": [
+      {
+        "name": "filesystem",
+        "status": "connected",
+        "tool_count": 13
+      },
+      {
+        "name": "tavily",
+        "status": "connected",
+        "tool_count": 2,
+        "mode": "keyless"
+      },
+      {
+        "name": "open-meteo",
+        "status": "connected",
+        "tool_count": 2
+      }
+    ]
+  },
+  "assessment": "All nine behavioral checks passed. Generated source summaries and weather claims were not independently fact-checked in this run."
+}

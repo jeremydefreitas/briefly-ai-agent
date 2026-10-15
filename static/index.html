@@ -1,0 +1,2314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Briefly is a research agent that turns questions into source-linked briefings using web research, weather data, and workspace tools."
+    />
+    <title>Briefly — The research workspace</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #19342a;
+        --body: #384c43;
+        --muted: #64776d;
+        --green: #176349;
+        --green-dark: #104a36;
+        --mint: #edf5ed;
+        --line: #dfe7df;
+        --paper: #fff;
+        --canvas: #f7f9f5;
+        font-family:
+          Inter,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        color: var(--ink);
+        background: var(--canvas);
+        font-synthesis: none;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 24px;
+      }
+      body {
+        margin: 0;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+      button,
+      a,
+      input,
+      select,
+      textarea {
+        -webkit-tap-highlight-color: transparent;
+      }
+      button {
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      a {
+        color: var(--green);
+        text-underline-offset: 3px;
+      }
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible,
+      textarea:focus-visible,
+      select:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid #8abc98;
+        outline-offset: 3px;
+      }
+      .ui-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        vertical-align: middle;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      .app {
+        max-width: 1120px;
+        margin: auto;
+        padding: 0 40px;
+      }
+      .site-header {
+        height: 88px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+        gap: 24px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .brand-mark {
+        width: 34px;
+        height: 38px;
+        color: var(--green);
+        display: grid;
+        place-items: center;
+      }
+      .brand-mark .ui-icon {
+        width: 32px;
+        height: 32px;
+      }
+      .brand-name {
+        font-size: 26px;
+        font-weight: 680;
+        letter-spacing: -1.3px;
+      }
+      .brand-divider {
+        height: 20px;
+        width: 1px;
+        background: #d6e0d6;
+        margin: 0 3px;
+      }
+      .brand-description {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .header-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .header-links > a {
+        font-size: 12px;
+        text-decoration: none;
+        color: var(--body);
+      }
+      .header-links > a:hover {
+        color: var(--green);
+      }
+      .new-chat {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+        font-size: 12px;
+        background: white;
+        border: 1px solid #ccd9cc;
+        padding: 9px 12px;
+        border-radius: 7px;
+        color: var(--ink);
+      }
+      .new-chat:hover {
+        background: var(--mint);
+      }
+      .eyebrow {
+        font-size: 10px;
+        line-height: 1.5;
+        font-weight: 650;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        color: var(--green);
+        margin: 0 0 15px;
+      }
+      .workspace {
+        display: block;
+        max-width: 960px;
+        margin: 32px auto 0;
+      }
+      .example {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        background: transparent;
+        border: 0;
+        color: var(--body);
+        text-align: left;
+        padding: 8px 0;
+        font-size: 11px;
+        line-height: 1.6;
+      }
+      .example .ui-icon {
+        width: 13px;
+        height: 13px;
+        color: #87988a;
+      }
+      .example:hover {
+        color: var(--green);
+      }
+      .connections {
+        max-width: 960px;
+        margin: 12px auto 0;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 4px;
+      }
+      .connections-title {
+        font-size: 10px;
+        color: var(--muted);
+        margin: 0;
+      }
+      .mcp-status {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .mcp-badge {
+        display: flex;
+        gap: 7px;
+        align-items: center;
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .dot {
+        height: 5px;
+        width: 5px;
+        flex-shrink: 0;
+        background: #a5b2a6;
+        border-radius: 50%;
+      }
+      .connected .dot {
+        background: #398c58;
+      }
+      .unavailable .dot {
+        background: #b65448;
+      }
+      .active .dot {
+        background: #22864f;
+        box-shadow: 0 0 0 3px #e1f1e4;
+      }
+      .right {
+        min-width: 0;
+      }
+      .chat {
+        background: var(--paper);
+        border: 1px solid #dce5d9;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 28px #243d2510;
+      }
+      .reader-header {
+        padding: 17px 26px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-bottom: 1px solid #e6ece3;
+      }
+      .report-title {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+      .report-title > .ui-icon {
+        color: var(--green);
+        width: 16px;
+        height: 16px;
+      }
+      .reader-header h3 {
+        font-size: 12px;
+        font-weight: 550;
+        margin: 0;
+      }
+      .reader-meta {
+        font-size: 10px;
+        color: var(--muted);
+        margin: 5px 0 0;
+      }
+      .reader-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .quiet-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 10px;
+        color: var(--muted);
+        background: white;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        padding: 6px 8px;
+      }
+      .quiet-button > .ui-icon {
+        width: 14px;
+        height: 14px;
+      }
+      .quiet-button:hover:not(:disabled) {
+        border-color: var(--line);
+        background: var(--canvas);
+      }
+      .messages {
+        position: relative;
+        height: auto;
+        max-height: 68vh;
+        min-height: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-gutter: stable;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+        padding: 28px 34px;
+        scroll-behavior: smooth;
+      }
+      .welcome {
+        width: 100%;
+        margin: 0;
+        padding: 5px 0 3px;
+      }
+      .welcome h1 {
+        font-size: 38px;
+        font-weight: 520;
+        line-height: 1.15;
+        letter-spacing: -1.4px;
+        margin: 0;
+        max-width: 26ch;
+      }
+      .welcome-intro {
+        font-size: 13px;
+        line-height: 1.8;
+        color: var(--muted);
+        max-width: 620px;
+        margin: 14px 0 22px;
+      }
+      .message {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+      }
+      .message.user {
+        width: fit-content;
+        max-width: 92%;
+        align-self: flex-end;
+        background: #f0f5ed;
+        border: 1px solid #e5ecdf;
+        padding: 11px 15px;
+        border-radius: 10px 10px 2px 10px;
+      }
+      .label {
+        font-size: 9px;
+        color: #7e8c80;
+        margin-bottom: 5px;
+      }
+      .assistant .label {
+        display: none;
+      }
+      .bubble {
+        font-size: 13px;
+        line-height: 1.85;
+        overflow-wrap: anywhere;
+        color: var(--body);
+        max-width: none;
+      }
+      .user .bubble {
+        font-size: 11px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+      }
+      .bubble h2 {
+        font:
+          normal 32px/1.2 Georgia,
+          serif;
+        letter-spacing: -0.7px;
+        color: var(--ink);
+        margin: 0 0 13px;
+        max-width: 24ch;
+      }
+      .bubble h3,
+      .bubble h4 {
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.5;
+        color: var(--ink);
+        margin: 20px 0 11px;
+      }
+      .bubble p {
+        margin: 0 0 13px;
+      }
+      .bubble .standfirst {
+        font-size: 15px;
+        line-height: 1.8;
+        color: #4d6254;
+        margin: 15px 0 22px;
+      }
+      .bubble .as-of {
+        font-size: 10px;
+        color: #829080;
+        margin: 0 0 16px;
+        letter-spacing: 0.15px;
+        font-variant-numeric: tabular-nums;
+      }
+      .bubble strong {
+        font-weight: 600;
+        color: #263d30;
+      }
+      .bubble a {
+        color: #276b4d;
+        text-decoration-color: #c1d6bc;
+        text-decoration-thickness: 1px;
+        overflow-wrap: anywhere;
+      }
+      .bubble a:hover {
+        text-decoration-color: var(--green);
+      }
+      .bubble ul,
+      .bubble ol {
+        padding-left: 20px;
+        margin: 6px 0 15px;
+      }
+      .bubble li {
+        padding: 3px 0 3px 3px;
+      }
+      .bubble li::marker {
+        color: #8ca487;
+      }
+      .bubble code {
+        font:
+          11px ui-monospace,
+          monospace;
+        background: #eef2eb;
+        border-radius: 3px;
+        padding: 2px 4px;
+      }
+      .bubble pre {
+        overflow-x: auto;
+        background: #f5f7f2;
+        border: 1px solid var(--line);
+        padding: 14px;
+        border-radius: 6px;
+        font:
+          11px/1.7 ui-monospace,
+          monospace;
+      }
+      .bubble blockquote {
+        border-left: 2px solid #7f9d78;
+        margin: 17px 0;
+        padding: 2px 0 2px 16px;
+        color: #64765f;
+      }
+      .bubble hr {
+        border: 0;
+        border-top: 1px solid var(--line);
+        margin: 20px 0;
+      }
+      .brief-section {
+        border-top: 1px solid var(--line);
+        padding-top: 20px;
+        margin-top: 23px;
+      }
+      .brief-section > h3,
+      .brief-section > h4 {
+        margin: 0 0 11px;
+      }
+      .summary-section {
+        background: #f0f6eb;
+        border: 1px solid #e1ebd9;
+        border-radius: 8px;
+        padding: 18px 21px;
+        margin: 24px 0;
+      }
+      .summary-section > h3 {
+        font-size: 10px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--green);
+      }
+      .summary-section ul {
+        margin-bottom: 0;
+      }
+      .summary-section li {
+        font-size: 12px;
+      }
+      .developments-section > ol,
+      .developments-section > ul {
+        list-style: none;
+        padding: 0;
+        counter-reset: development;
+      }
+      .developments-section > ol > li,
+      .developments-section > ul > li {
+        position: relative;
+        padding: 2px 0 18px 34px;
+        margin: 0 0 14px;
+        border-bottom: 1px solid #edf0e9;
+        counter-increment: development;
+      }
+      .developments-section > ol > li::before,
+      .developments-section > ul > li::before {
+        content: counter(development, decimal-leading-zero);
+        position: absolute;
+        left: 0;
+        top: 2px;
+        font:
+          10px/2 ui-monospace,
+          monospace;
+        color: #7d9d75;
+      }
+      .developments-section li > strong:first-child {
+        display: block;
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 5px;
+      }
+      .implications-section {
+        border-top: 0;
+        border-left: 2px solid #a4be98;
+        padding: 0 0 0 18px;
+      }
+      .watch-section ul {
+        font-size: 12px;
+      }
+      .source-section {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .source-section > h3 {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--muted);
+      }
+      .source-section ul,
+      .source-section ol {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        gap: 6px;
+      }
+      .source-section li {
+        margin: 0;
+        padding: 0;
+      }
+      .source-section a {
+        display: inline-block;
+        background: #f7f9f4;
+        border: 1px solid #e2e9dc;
+        border-radius: 5px;
+        padding: 5px 9px;
+        line-height: 1.5;
+        text-decoration: none;
+        max-width: 100%;
+      }
+      .section-icon {
+        color: #71936a;
+        display: inline-block;
+        width: 24px;
+        font-size: 17px;
+        font-weight: 400;
+      }
+      .weather-section > .table-wrap {
+        border: 0;
+        background: #f5f8f1;
+        padding: 0;
+        border-radius: 8px;
+      }
+      .table-wrap {
+        overflow-x: auto;
+        border: 1px solid #e0e7db;
+        border-radius: 6px;
+        margin: 14px 0 18px;
+      }
+      .bubble table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      .bubble th,
+      .bubble td {
+        text-align: left;
+        padding: 10px 13px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+      }
+      .bubble th {
+        background: #f2f6ed;
+        font-size: 10px;
+        font-weight: 550;
+        color: var(--muted);
+      }
+      .bubble tr:last-child td {
+        border-bottom: 0;
+      }
+      .weather-section td:last-child {
+        font-weight: 650;
+        color: var(--green);
+        font-variant-numeric: tabular-nums;
+      }
+      .weather-section td:first-child {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .pending-response {
+        padding: 15px 0;
+      }
+      .pending-heading {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 12px;
+        color: var(--green);
+        margin: 0 0 17px;
+      }
+      .spinner {
+        width: 12px;
+        height: 12px;
+        border: 1.5px solid #c8ddc2;
+        border-top-color: var(--green);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        flex-shrink: 0;
+      }
+      .skeleton {
+        height: 7px;
+        max-width: 92%;
+        border-radius: 3px;
+        background: #eff3eb;
+        margin: 11px 0;
+        animation: breathe 1.5s ease-in-out infinite;
+      }
+      .skeleton.short {
+        max-width: 61%;
+      }
+      .follow-ups {
+        padding: 0 30px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+      .follow-ups button {
+        font-size: 10px;
+        border: 1px solid #dfe8d8;
+        border-radius: 20px;
+        padding: 7px 11px;
+        background: white;
+        color: #596e50;
+      }
+      .follow-ups button:hover {
+        background: var(--mint);
+      }
+      .composer {
+        border-top: 1px solid #e1e8db;
+        padding: 21px 25px 17px;
+        background: #fcfdfb;
+      }
+      .composer-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+      .composer-heading label {
+        font-size: 11px;
+        font-weight: 550;
+        color: var(--body);
+      }
+      .keyboard-hint {
+        font-size: 9px;
+        color: #8a9788;
+      }
+      .input-shell {
+        border: 1px solid #ceddc6;
+        border-radius: 9px;
+        background: white;
+        padding: 10px 10px 9px 14px;
+        box-shadow: 0 2px 5px #253e2205;
+      }
+      .input-shell:focus-within {
+        border-color: #83a277;
+        box-shadow: 0 0 0 3px #eaf3e5;
+      }
+      #chat-form {
+        display: flex;
+        gap: 12px;
+        align-items: flex-end;
+      }
+      #query {
+        border: 0;
+        background: transparent;
+        resize: none;
+        flex: 1;
+        min-width: 0;
+        max-height: 136px;
+        padding: 2px 0 7px;
+        font-size: 12px;
+        line-height: 1.8;
+        color: var(--ink);
+      }
+      #query::placeholder {
+        color: #99a493;
+      }
+      #query:focus-visible {
+        outline: none;
+      }
+      .send {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--green);
+        color: white;
+        border: 0;
+        border-radius: 6px;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+      }
+      .send:hover:not(:disabled) {
+        background: var(--green-dark);
+      }
+      .send .ui-icon {
+        width: 16px;
+        height: 16px;
+        transform: rotate(-90deg);
+      }
+      .research-bar {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 12px 0 0;
+        min-height: 36px;
+      }
+      .live-tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        min-width: 0;
+      }
+      .live-tag {
+        font-size: 9px;
+        display: inline-flex;
+        gap: 5px;
+        align-items: center;
+        border: 1px solid #d4e6cb;
+        background: #eff7ea;
+        color: #47763b;
+        border-radius: 20px;
+        padding: 4px 8px;
+        line-height: 1.4;
+      }
+      .live-tag .tag-mark {
+        font-size: 10px;
+        line-height: 1;
+      }
+      .live-tag.running .tag-mark {
+        width: 9px;
+        height: 9px;
+        border: 1px solid #a8c89a;
+        border-top-color: #397a32;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      .live-tag.failed {
+        background: #fff4f1;
+        color: #a14b3c;
+        border-color: #f0d6cd;
+      }
+      .live-tag.retry {
+        background: #fbf7ec;
+        color: #947235;
+        border-color: #ecdfb9;
+      }
+      .live-tag.idle {
+        color: #7b8c74;
+        background: #f6f9f2;
+        border-color: #e1e8da;
+      }
+      .status {
+        font-size: 10px;
+        line-height: 1.7;
+        color: #7c8e74;
+        margin: 8px 0 0;
+        min-height: 16px;
+      }
+      .status.error {
+        color: #a14b3c;
+      }
+      .activity {
+        min-width: 105px;
+        margin-left: auto;
+        font-size: 9px;
+        color: #658359;
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .activity summary {
+        cursor: pointer;
+        padding: 5px 0;
+        list-style: none;
+        white-space: nowrap;
+      }
+      .activity summary::-webkit-details-marker {
+        display: none;
+      }
+      .activity summary::after {
+        content: " +";
+        margin-left: 4px;
+      }
+      .activity[open] summary::after {
+        content: " −";
+      }
+      .activity-log {
+        max-height: 170px;
+        overflow: auto;
+        text-align: left;
+        font-size: 10px;
+        line-height: 1.6;
+        margin-top: 11px;
+        border-top: 1px solid #e1e9d9;
+        padding-top: 7px;
+      }
+      .activity-row {
+        display: flex;
+        gap: 10px;
+        padding: 5px 0;
+        overflow-wrap: anywhere;
+        color: #677961;
+      }
+      .activity-row time {
+        color: #93a08b;
+        font-size: 9px;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+      }
+      .tool_start,
+      .model_retry {
+        color: #60834f;
+      }
+      .tool_end {
+        color: #2f7b46;
+      }
+      .tool_error,
+      .activity-row.error {
+        color: #a14b3c;
+      }
+      .activity-empty {
+        font-size: 10px;
+        color: var(--muted);
+        margin: 0;
+      }
+      .research-details {
+        margin-top: 4px;
+      }
+      .activity[open] {
+        width: 100%;
+      }
+      .research-bar:has(.activity[open]) {
+        flex-wrap: wrap;
+      }
+      .activity[open] summary {
+        text-align: left;
+      }
+      .composer-note {
+        margin: 11px 0 0;
+        font-size: 9px;
+        color: #94a08d;
+        line-height: 1.5;
+      }
+      .project-story {
+        max-width: 960px;
+        margin: 22px auto 0;
+        padding: 16px 4px;
+        border-top: 1px solid var(--line);
+        display: block;
+      }
+      .project-story h2 {
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 1.2;
+        letter-spacing: -0.8px;
+        margin: 0 0 12px;
+      }
+      .project-story p {
+        font-size: 12px;
+        line-height: 1.8;
+        color: var(--muted);
+        margin: 0;
+      }
+      .project-story .eyebrow {
+        font-size: 9px;
+        margin: 0 0 10px;
+      }
+      .project-story a {
+        font-size: 11px;
+        display: inline-flex;
+        gap: 7px;
+        align-items: center;
+        margin-top: 17px;
+        text-decoration: none;
+      }
+      .architecture-path {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+        position: relative;
+        padding-top: 4px;
+      }
+      .architecture-step {
+        border-top: 2px solid #c0d5b5;
+        padding-top: 15px;
+      }
+      .architecture-step > span {
+        font:
+          9px ui-monospace,
+          monospace;
+        color: #8da080;
+      }
+      .architecture-step h3 {
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.6;
+        margin: 9px 0 7px;
+      }
+      .architecture-step p {
+        font-size: 11px;
+      }
+      .project-footnote {
+        grid-column: 1/-1;
+        font-size: 10px;
+        color: #87977d;
+        margin-top: 2px;
+        line-height: 1.7;
+      }
+      .site-footer {
+        border-top: 1px solid var(--line);
+        padding: 19px 0 26px;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        color: #8a9781;
+        font-size: 9px;
+        line-height: 1.8;
+      }
+      .site-footer strong {
+        font-weight: 550;
+        color: #5e7656;
+      }
+      .site-footer a {
+        color: inherit;
+        text-decoration: none;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes breathe {
+        50% {
+          opacity: 0.45;
+        }
+      }
+      @media (min-width: 1500px) {
+        .messages {
+        }
+      }
+      @media (max-width: 1100px) {
+        .app {
+          padding: 0 28px;
+        }
+        .workspace {
+          grid-template-columns: 255px minmax(0, 1fr);
+          gap: 18px;
+        }
+        .messages {
+          padding: 28px;
+        }
+        .project-story {
+          grid-template-columns: 250px 1fr;
+          gap: 30px;
+        }
+        .reader-actions {
+          gap: 3px;
+        }
+        .quiet-button {
+          padding: 5px;
+        }
+        .quiet-button > span {
+          display: none;
+        }
+      }
+      @media (max-width: 800px) {
+        .app {
+          padding: 0 20px;
+        }
+        .site-header {
+          height: 75px;
+        }
+        .brand-description,
+        .brand-divider {
+          display: none;
+        }
+        .header-links {
+          gap: 16px;
+        }
+        .workspace {
+          grid-template-columns: 1fr;
+        }
+        .connections {
+          margin-top: 15px;
+          padding-top: 13px;
+          display: flex;
+          gap: 15px;
+          flex-wrap: wrap;
+        }
+        .connections-title {
+          margin: 0;
+        }
+        .mcp-status {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 14px;
+        }
+        .messages {
+          padding: 27px;
+        }
+        .project-story {
+          grid-template-columns: 1fr;
+          gap: 25px;
+          margin-top: 40px;
+        }
+        .project-story h2 {
+          font-size: 23px;
+        }
+        .architecture-path {
+          gap: 18px;
+        }
+        .project-footnote {
+          margin-top: 0;
+        }
+        .reader-actions .quiet-button > span {
+          display: inline;
+        }
+      }
+      @media (max-width: 480px) {
+        .app {
+          padding: 0 15px;
+        }
+        .header-links > a {
+          display: none;
+        }
+        .brand-name {
+          font-size: 24px;
+        }
+        .reader-header {
+          padding: 15px 18px;
+        }
+        .reader-actions .quiet-button > span {
+          display: none;
+        }
+        .reader-meta {
+          font-size: 9px;
+        }
+        .messages {
+          padding: 24px 21px;
+        }
+        .welcome h1,
+        .bubble h2 {
+          font-size: 28px;
+        }
+        .welcome-intro {
+          font-size: 11px;
+        }
+        .composer {
+          padding: 18px 17px 15px;
+        }
+        .keyboard-hint {
+          display: none;
+        }
+        .research-bar {
+          flex-wrap: wrap;
+        }
+        .activity {
+          margin-left: 0;
+        }
+        .follow-ups {
+          padding: 0 20px 18px;
+        }
+        .architecture-path {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .architecture-step {
+          display: block;
+        }
+        .architecture-step h3 {
+          margin: 8px 0 5px;
+        }
+        .architecture-step p {
+          grid-column: 2;
+        }
+        .site-footer {
+          display: block;
+        }
+        .site-footer > span {
+          display: block;
+          margin-top: 5px;
+        }
+        .summary-section {
+          padding: 16px;
+        }
+        .bubble {
+          font-size: 12px;
+        }
+        .live-tag {
+          font-size: 8px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html,
+        .messages {
+          scroll-behavior: auto;
+        }
+        .spinner,
+        .live-tag.running .tag-mark,
+        .skeleton {
+          animation: none;
+        }
+      }
+      .example-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+      }
+      .example {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        width: auto;
+        padding: 10px 13px;
+        background: #f5f8f0;
+        border: 1px solid #dce7d5;
+        border-radius: 7px;
+        color: #416139;
+        font-size: 11px;
+        line-height: 1.5;
+        text-align: left;
+      }
+      .example span {
+        color: #81a075;
+      }
+      .example:hover {
+        background: #eaf3e1;
+        border-color: #b9cfae;
+      }
+      .project-story > summary {
+        cursor: pointer;
+        font-size: 11px;
+        color: var(--muted);
+        width: fit-content;
+      }
+      .project-content {
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+        gap: 24px 35px;
+        margin-top: 25px;
+        padding-bottom: 10px;
+      }
+      .site-footer {
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .composer-heading label {
+        font-size: 11px;
+      }
+      .status:empty {
+        display: none;
+      }
+      @media (max-width: 800px) {
+        .workspace {
+          margin-top: 24px;
+        }
+        .project-content {
+          grid-template-columns: 1fr;
+        }
+        .connections {
+          gap: 10px;
+        }
+        .mcp-status {
+          gap: 10px;
+        }
+        .messages {
+          max-height: 65vh;
+        }
+        .welcome h1 {
+          font-size: 34px;
+        }
+        .project-story {
+          margin-top: 18px;
+        }
+      }
+      @media (max-width: 480px) {
+        .app {
+          padding: 0 15px;
+        }
+        .messages {
+          padding: 23px 21px;
+          max-height: 64vh;
+        }
+        .welcome h1 {
+          font-size: 30px;
+          letter-spacing: -0.8px;
+        }
+        .welcome-intro {
+          font-size: 12px;
+          margin: 12px 0 18px;
+        }
+        .example-buttons {
+          gap: 7px;
+        }
+        .example {
+          padding: 8px 10px;
+          font-size: 10px;
+        }
+        .connections {
+          flex-wrap: wrap;
+        }
+        .mcp-badge {
+          font-size: 9px;
+        }
+        .site-footer {
+          padding-top: 16px;
+        }
+        .keyboard-hint {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <header class="site-header">
+        <a class="brand" href="#" aria-label="Briefly home"
+          ><span class="brand-mark"
+            ><svg
+              class="ui-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8l-5-5Zm0 0v5h5M9 12h6m-6 4h6"
+              /></svg></span
+          ><span class="brand-name">briefly.</span
+          ><span class="brand-divider"></span
+          ><span class="brand-description">The research workspace</span></a
+        >
+        <nav class="header-links" aria-label="Main navigation">
+          <a id="project-link" href="#project">How it works</a
+          ><button class="new-chat" id="new-chat" type="button">
+            <svg
+              class="ui-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+            New workspace
+          </button>
+        </nav>
+      </header>
+      <div class="workspace" id="workspace">
+        <div class="right">
+          <section
+            class="chat"
+            aria-label="Briefing and follow-up conversation"
+          >
+            <div class="reader-header">
+              <div>
+                <div class="report-title">
+                  <svg
+                    class="ui-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8l-5-5Zm0 0v5h5M9 12h6m-6 4h6"
+                    />
+                  </svg>
+                  <h3 id="reader-title">Your research</h3>
+                </div>
+                <p class="reader-meta" id="reader-meta">
+                  Questions, findings, and source links.
+                </p>
+              </div>
+              <div class="reader-actions">
+                <button
+                  class="quiet-button"
+                  id="view-sources"
+                  type="button"
+                  disabled
+                >
+                  Sources
+                </button>
+                <button
+                  class="quiet-button"
+                  id="copy-briefing"
+                  type="button"
+                  disabled
+                >
+                  <svg
+                    class="ui-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M9 8V4h11v13h-4M4 8h11v13H4Z" /></svg
+                  ><span>Copy</span
+                  ><span class="sr-only">Copy latest response</span></button
+                ><button
+                  class="quiet-button"
+                  id="download-briefing"
+                  type="button"
+                  disabled
+                >
+                  <svg
+                    class="ui-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5" /></svg
+                  ><span>Download</span
+                  ><span class="sr-only">Download latest response</span>
+                </button>
+              </div>
+            </div>
+            <div
+              class="messages"
+              id="messages"
+              role="log"
+              aria-live="polite"
+              aria-relevant="additions"
+            >
+              <div class="welcome" id="welcome">
+                <p class="eyebrow">Your research starts here</p>
+                <h1 id="page-title">
+                  Ask a question.<br />Or ask for a brief.
+                </h1>
+                <p class="welcome-intro">
+                  Briefly researches the web and checks forecasts, then brings
+                  the findings together with source links.
+                </p>
+                <div
+                  class="example-buttons"
+                  aria-label="Example briefing prompts"
+                >
+                  <button class="example" id="example-politics" type="button">
+                    Today's global politics <span aria-hidden="true">↗</span>
+                  </button>
+                  <button class="example" id="example-tech" type="button">
+                    This week in AI <span aria-hidden="true">↗</span>
+                  </button>
+                  <button class="example" id="example-weather" type="button">
+                    Weather in Los Angeles <span aria-hidden="true">↗</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="follow-ups" id="follow-ups" hidden>
+              <button id="follow-implications" type="button">
+                Explain the implications</button
+              ><button id="follow-watch" type="button">
+                What should I watch next?</button
+              ><button id="follow-save" type="button">Save to workspace</button>
+            </div>
+            <div class="composer">
+              <div class="composer-heading">
+                <label for="query">Ask a question or ask for a brief</label
+                ><span class="keyboard-hint"
+                  >Enter to send · Shift + Enter for a new line</span
+                >
+              </div>
+              <div class="input-shell">
+                <form id="chat-form">
+                  <textarea
+                    id="query"
+                    rows="2"
+                    placeholder="Ask a question or ask for a brief…"
+                    required
+                  ></textarea
+                  ><button
+                    class="send"
+                    id="send"
+                    type="submit"
+                    disabled
+                    aria-label="Send message"
+                  >
+                    <svg
+                      class="ui-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M4 12h16m-6-6 6 6-6 6" />
+                    </svg>
+                  </button>
+                </form>
+              </div>
+              <div class="research-bar">
+                <div
+                  class="live-tags"
+                  id="live-tags"
+                  role="status"
+                  aria-live="polite"
+                >
+                  <span class="live-tag idle"
+                    >Research activity appears here</span
+                  >
+                </div>
+                <details class="activity" id="activity-details">
+                  <summary>Activity <span id="activity-count">0</span></summary>
+                  <div
+                    class="activity-log"
+                    id="activity-log"
+                    role="log"
+                    aria-live="polite"
+                    aria-relevant="additions"
+                  >
+                    <p class="activity-empty">
+                      Tool activity will appear when a request starts.
+                    </p>
+                  </div>
+                </details>
+              </div>
+              <p
+                class="status"
+                id="status"
+                role="status"
+                aria-live="polite"
+              ></p>
+              <p class="composer-note">
+                Check important details against the sources.
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="connections" aria-label="Research connections">
+        <span class="connections-title">Tools</span>
+        <section
+          class="mcp-status"
+          id="mcp-status"
+          aria-label="Research tool connections"
+          aria-live="polite"
+        >
+          <span class="mcp-badge">Checking connections…</span>
+        </section>
+      </div>
+      <details class="project-story" id="project">
+        <summary>How Briefly works</summary>
+        <div class="project-content">
+          <div>
+            <p class="eyebrow">Under the hood</p>
+            <h2 id="project-title">An agent you can inspect.</h2>
+            <p>
+              Briefly connects a language model to real research tools. The
+              model decides what to use, works through the results, and keeps
+              your follow-up questions in context.
+            </p>
+            <a href="/docs"
+              >Explore the API
+              <svg
+                class="ui-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M4 12h16m-6-6 6 6-6 6" /></svg
+            ></a>
+          </div>
+          <div class="architecture-path">
+            <div class="architecture-step">
+              <span>01 / REQUEST</span>
+              <h3>FastAPI + Agents SDK</h3>
+              <p>
+                A Python service receives your question and session ID.
+                SDK-native memory carries the conversation across turns.
+              </p>
+            </div>
+            <div class="architecture-step">
+              <span>02 / RESEARCH</span>
+              <h3>Three MCP integrations</h3>
+              <p>
+                Tavily searches the web. Open-Meteo provides forecasts.
+                Filesystem tools read and save workspace files.
+              </p>
+            </div>
+            <div class="architecture-step">
+              <span>03 / SYNTHESIS</span>
+              <h3>NVIDIA NIM → your brief</h3>
+              <p>
+                The model combines tool results into an answer, selects another
+                tool when needed, and returns the briefing.
+              </p>
+            </div>
+          </div>
+          <div class="project-footnote">
+            Deployed on Google Cloud Run · Real MCP discovery and tool calls ·
+            Credentials stay on the server · Workspace file access is restricted
+            to its data directory
+          </div>
+        </div>
+      </details>
+      <footer class="site-footer">
+        <span
+          ><strong>briefly.</strong> &nbsp; A research workspace, built to make
+          the process visible.</span
+        ><span>FastAPI · OpenAI Agents SDK · MCP · NVIDIA NIM</span>
+      </footer>
+    </main>
+    <script>
+      document.getElementById("project-link").addEventListener("click", () => {
+        document.getElementById("project").open = true;
+      });
+      const form = document.getElementById("chat-form");
+      const input = document.getElementById("query");
+      const send = document.getElementById("send");
+      const reset = document.getElementById("new-chat");
+      const messages = document.getElementById("messages");
+      const welcome = document.getElementById("welcome");
+      const status = document.getElementById("status");
+      const mcpStatus = document.getElementById("mcp-status");
+      const activityLog = document.getElementById("activity-log");
+      const hint = "Ask a follow-up.";
+      const liveTags = document.getElementById("live-tags");
+      const activityCount = document.getElementById("activity-count");
+      const researchSteps = new Map();
+      let modelPhase = null;
+      let requestStarted = 0;
+      let sessionId = crypto.randomUUID();
+      let busy = false;
+      let latestBriefing = "";
+      const copyButton = document.getElementById("copy-briefing");
+      const sourcesButton = document.getElementById("view-sources");
+      let latestMessage = null;
+      const downloadButton = document.getElementById("download-briefing");
+      const followUps = document.getElementById("follow-ups");
+      const controls = [
+        reset,
+        ...[
+          "example-politics",
+          "example-tech",
+          "example-weather",
+          "follow-implications",
+          "follow-watch",
+          "follow-save",
+        ].map((id) => document.getElementById(id)),
+      ];
+      let serverStates = [];
+      const activeTools = new Map();
+
+      const toolLabels = {
+        tavily_search: ["Searching the web", "Web searched"],
+        tavily_extract: ["Reading sources", "Sources read"],
+        geocoding: ["Finding the location", "Location resolved"],
+        weather_forecast: ["Checking the forecast", "Forecast retrieved"],
+        read_text_file: ["Reading a file", "File read"],
+        read_file: ["Reading a file", "File read"],
+        write_file: ["Saving to workspace", "File saved"],
+      };
+
+      function renderResearchTags() {
+        liveTags.replaceChildren();
+        const appendTag = (label, state) => {
+          const tag = document.createElement("span");
+          tag.className = `live-tag ${state}`;
+          const mark = document.createElement("span");
+          mark.className = "tag-mark";
+          mark.setAttribute("aria-hidden", "true");
+          mark.textContent =
+            state === "running"
+              ? ""
+              : state === "failed"
+                ? "!"
+                : state === "done"
+                  ? "✓"
+                  : "·";
+          const text = document.createElement("span");
+          text.textContent = label;
+          tag.append(mark, text);
+          liveTags.append(tag);
+        };
+        for (const step of researchSteps.values()) {
+          const names = toolLabels[step.tool] || [
+            `Using ${step.server}`,
+            `${step.server} completed`,
+          ];
+          const state = step.running
+            ? "running"
+            : step.failed
+              ? "failed"
+              : "done";
+          const label = step.running
+            ? names[0]
+            : step.failed
+              ? `${names[0]} failed`
+              : names[1];
+          appendTag(
+            label + (step.completed > 1 ? ` · ${step.completed}` : ""),
+            state,
+          );
+        }
+        if (modelPhase) appendTag(modelPhase.label, modelPhase.state);
+        if (!researchSteps.size && !modelPhase)
+          appendTag("Research activity appears here", "idle");
+      }
+
+      function updateResearch(event) {
+        if (event.type === "request_start") {
+          researchSteps.clear();
+          requestStarted = Date.now();
+          modelPhase = { label: "Planning the response", state: "running" };
+        } else if (event.type === "model_start") {
+          modelPhase = {
+            label: researchSteps.size
+              ? "Working with the findings"
+              : "Understanding your question",
+            state: "running",
+          };
+        } else if (event.type === "model_retry") {
+          modelPhase = { label: "Retrying model connection", state: "retry" };
+        } else if (event.type === "model_end") {
+          modelPhase = null;
+        } else if (
+          ["tool_start", "tool_end", "tool_error"].includes(event.type)
+        ) {
+          const key = `${event.server}:${event.tool}`;
+          const step = researchSteps.get(key) || {
+            tool: event.tool,
+            server: event.server,
+            running: 0,
+            completed: 0,
+            failed: false,
+          };
+          if (event.type === "tool_start") step.running++;
+          else {
+            step.running = Math.max(0, step.running - 1);
+            if (event.type === "tool_end") step.completed++;
+            else step.failed = true;
+          }
+          researchSteps.set(key, step);
+          modelPhase = null;
+        } else if (event.type === "response") {
+          modelPhase = { label: "Response ready", state: "done" };
+        } else if (event.type === "error") {
+          for (const step of researchSteps.values()) {
+            if (step.running) {
+              step.running = 0;
+              step.failed = true;
+            }
+          }
+          modelPhase = { label: "Request interrupted", state: "failed" };
+        }
+        renderResearchTags();
+      }
+
+      function renderServers() {
+        mcpStatus.replaceChildren();
+        for (const server of serverStates) {
+          const active = (activeTools.get(server.name) || 0) > 0;
+          const badge = document.createElement("span");
+          badge.className = `mcp-badge ${server.status}${active ? " active" : ""}`;
+          const dot = document.createElement("span");
+          dot.className = "dot";
+          dot.setAttribute("aria-hidden", "true");
+          const label = document.createElement("span");
+          const state = active
+            ? "Using tool"
+            : server.status === "connected"
+              ? "Connected"
+              : "Unavailable";
+          const mode = server.mode === "keyless" ? " · keyless" : "";
+          const name =
+            {
+              filesystem: "Workspace",
+              tavily: "Web research",
+              "open-meteo": "Weather",
+            }[server.name] || server.name;
+          label.textContent = `${name} · ${state}${mode}`;
+          badge.title =
+            server.status === "connected"
+              ? `${server.tool_count} tools · MCP connection responds to health checks`
+              : "MCP connection unavailable";
+          badge.append(dot, label);
+          mcpStatus.append(badge);
+        }
+      }
+
+      async function refreshServers() {
+        try {
+          const response = await fetch("/mcp/status");
+          if (!response.ok) throw new Error("Status unavailable");
+          const data = await response.json();
+          if (!Array.isArray(data.servers)) throw new Error("Invalid status");
+          serverStates = data.servers;
+          renderServers();
+        } catch {
+          mcpStatus.replaceChildren();
+          const badge = document.createElement("span");
+          badge.className = "mcp-badge unavailable";
+          badge.textContent = "MCP status unavailable";
+          mcpStatus.append(badge);
+        }
+      }
+
+      function logActivity(event) {
+        if (event.type === "heartbeat") return;
+        updateResearch(event);
+        activityLog.querySelector(".activity-empty")?.remove();
+        const row = document.createElement("div");
+        row.className = `activity-row ${event.type}`;
+        const time = document.createElement("time");
+        const timestamp = event.timestamp
+          ? new Date(event.timestamp)
+          : new Date();
+        time.dateTime = timestamp.toISOString();
+        time.textContent = timestamp.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+        const message = document.createElement("span");
+        message.textContent = event.message;
+        row.append(time, message);
+        activityLog.append(row);
+        if (activityLog.children.length > 200)
+          activityLog.firstElementChild.remove();
+        activityCount.textContent = activityLog.children.length;
+        activityLog.scrollTop = activityLog.scrollHeight;
+        if (event.server) {
+          const count = activeTools.get(event.server) || 0;
+          if (event.type === "tool_start")
+            activeTools.set(event.server, count + 1);
+          if (event.type === "tool_end" || event.type === "tool_error")
+            activeTools.set(event.server, Math.max(0, count - 1));
+          renderServers();
+        }
+        if (event.type !== "response" && event.message)
+          status.textContent = event.message;
+      }
+
+      async function readChatStream(response) {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+        let answer;
+        let finished = false;
+        function processLine(line) {
+          if (!line.trim()) return;
+          const event = JSON.parse(line);
+          logActivity(event);
+          if (event.type === "error") throw new Error(event.message);
+          if (event.type === "response") answer = event.response;
+        }
+        try {
+          while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            buffer += decoder.decode(value, { stream: true });
+            let newline;
+            while ((newline = buffer.indexOf("\n")) !== -1) {
+              processLine(buffer.slice(0, newline));
+              buffer = buffer.slice(newline + 1);
+            }
+          }
+          buffer += decoder.decode();
+          processLine(buffer);
+          if (typeof answer !== "string")
+            throw new Error(
+              "The connection ended before a response arrived. Please retry.",
+            );
+          finished = true;
+          return answer;
+        } finally {
+          if (!finished) await reader.cancel();
+          reader.releaseLock();
+        }
+      }
+
+      refreshServers();
+      setInterval(refreshServers, 10000);
+
+      function updateInput() {
+        input.style.height = "auto";
+        input.style.height = `${Math.min(input.scrollHeight, 136)}px`;
+        send.disabled = busy || !input.value.trim();
+      }
+
+      function addMessage(role, text) {
+        welcome.hidden = true;
+        const message = document.createElement("div");
+        message.className = `message ${role}`;
+        const label = document.createElement("div");
+        label.className = "label";
+        label.textContent = role === "user" ? "Your request" : "Briefly";
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        if (role === "assistant") renderBrief(bubble, text);
+        else bubble.textContent = text;
+        message.append(label, bubble);
+        messages.append(message);
+        messages.scrollTop =
+          role === "assistant" ? message.offsetTop || 0 : messages.scrollHeight;
+        return message;
+      }
+
+      input.addEventListener("input", updateInput);
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {
+          event.preventDefault();
+          if (!send.disabled) form.requestSubmit();
+        }
+      });
+
+      reset.addEventListener("click", () => {
+        sessionId = crypto.randomUUID();
+        messages.replaceChildren(welcome);
+        welcome.hidden = false;
+        input.value = "";
+        latestBriefing = "";
+        copyButton.disabled = downloadButton.disabled = true;
+        sourcesButton.disabled = true;
+        sourcesButton.textContent = "Sources";
+        latestMessage = null;
+        followUps.hidden = true;
+        document.getElementById("reader-title").textContent = "Your research";
+        document.getElementById("reader-meta").textContent =
+          "Questions, findings, and source links.";
+        status.textContent = hint;
+        status.classList.remove("error");
+        activityLog.replaceChildren();
+        activityCount.textContent = "0";
+        researchSteps.clear();
+        modelPhase = null;
+        renderResearchTags();
+        activeTools.clear();
+        renderServers();
+        updateInput();
+        input.focus();
+      });
+
+      sourcesButton.addEventListener("click", () => {
+        latestMessage
+          ?.querySelector(".source-section")
+          ?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      });
+
+      async function submitRequest(
+        query,
+        displayText = query,
+        restoreInput = true,
+      ) {
+        if (busy || !query) return;
+        busy = true;
+        controls.forEach((control) => {
+          control.disabled = true;
+        });
+        input.readOnly = true;
+        status.classList.remove("error");
+        status.textContent = "Agent is thinking…";
+        addMessage("user", displayText);
+        const pending = document.createElement("div");
+        pending.className = "pending-response";
+        const pendingHeading = document.createElement("p");
+        pendingHeading.className = "pending-heading";
+        const spinner = document.createElement("span");
+        spinner.className = "spinner";
+        spinner.setAttribute("aria-hidden", "true");
+        const pendingLabel = document.createElement("span");
+        pendingLabel.textContent = "Preparing your response";
+        pendingHeading.append(spinner, pendingLabel);
+        pending.append(pendingHeading);
+        for (const width of ["", "", "short"]) {
+          const line = document.createElement("div");
+          line.className = `skeleton ${width}`;
+          pending.append(line);
+        }
+        pending.setAttribute("aria-label", "Response in progress");
+        messages.append(pending);
+        requestStarted = Date.now();
+        researchSteps.clear();
+        modelPhase = { label: "Connecting to the agent", state: "running" };
+        renderResearchTags();
+        input.value = "";
+        updateInput();
+
+        try {
+          const response = await fetch("/chat/stream", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query, session_id: sessionId }),
+          });
+          if (!response.ok) {
+            const data = await response.json();
+            throw new Error(
+              typeof data.detail === "string"
+                ? data.detail
+                : "Your message could not be sent. Please retry.",
+            );
+          }
+          const answer = await readChatStream(response);
+          pending.remove();
+          latestMessage = addMessage("assistant", answer);
+          sourcesButton.disabled =
+            !/^#{1,6}\s+Sources\s*$/im.test(answer) &&
+            !/^\*\*Sources\*\*:?\s*$/im.test(answer);
+          latestBriefing = answer;
+          copyButton.disabled = downloadButton.disabled = false;
+          followUps.hidden = false;
+          const seconds = Math.max(
+            1,
+            Math.round((Date.now() - requestStarted) / 1000),
+          );
+          status.textContent = `Completed in ${seconds}s · ${hint}`;
+          const words = answer.trim().split(/\s+/).length;
+          document.getElementById("reader-meta").textContent =
+            `${words} word${words === 1 ? "" : "s"} · ${Math.max(1, Math.ceil(words / 200))} min read`;
+        } catch (error) {
+          updateResearch({ type: "error" });
+          if (restoreInput) input.value = displayText;
+          status.classList.add("error");
+          status.textContent =
+            error instanceof TypeError || error instanceof SyntaxError
+              ? "Unable to reach the agent. Please try again."
+              : error.message;
+          if (!activityLog.lastElementChild?.classList.contains("error")) {
+            logActivity({ type: "error", message: status.textContent });
+          }
+        } finally {
+          pending.remove();
+          busy = false;
+          activeTools.clear();
+          renderServers();
+          refreshServers();
+          controls.forEach((control) => {
+            control.disabled = false;
+          });
+          input.readOnly = false;
+          updateInput();
+          input.focus();
+        }
+      }
+
+      function timeContext(now = new Date()) {
+        const timezone =
+          Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+        return `Request time: ${now.toISOString()}. User timezone: ${timezone}. Interpret relative dates in that timezone.`;
+      }
+
+      function buildChatRequest(query, now = new Date()) {
+        return [
+          query,
+          timeContext(now),
+          "Answer direct questions directly. For briefing requests, research relevant current information and write a concise report of about 300–400 words unless the user requests another length.",
+          "For web research, use Tavily search: at most 3 search calls with 5 results each, leave include_raw_content false, and make at most 1 extract call for up to 2 useful pages. Then answer with the evidence available, explaining any gaps instead of continuing to search.",
+          "For weather, use Open-Meteo geocoding and forecast tools. Include units and local dates/time. Do not invent observations or historical data that the available tool does not provide.",
+          "For briefings, use one specific # title, an As of date, a one-sentence summary, then ## At a glance, ## Key developments, ## Why it matters, ## What to watch next, and ## Sources. Use up to 3 numbered developments with bold headlines and supporting source links. Weather briefings should instead use ## Conditions, ## Rain & wind, ## Travel notes, and ## Sources, with a small table of actual returned measurements.",
+          "Prefer primary or authoritative sources. Include only URLs actually returned by tools; distinguish third-party sources from official sources. Check publication dates; never claim a source was read when it was not. Do not invent missing facts, links, or measurements.",
+          "Keep follow-ups focused without repeating the full report. Do not save files unless asked.",
+        ].join("\n\n");
+      }
+
+      function appendInline(parent, text) {
+        const pattern =
+          /(\*\*[^*]+\*\*|\*[^*\n]+\*|~~[^~]+~~|`[^`]+`|\[[^\]]+\]\([^)]+\)|https?:\/\/[^\s<>]+)/g;
+        let offset = 0;
+        for (const match of text.matchAll(pattern)) {
+          parent.append(
+            document.createTextNode(text.slice(offset, match.index)),
+          );
+          const token = match[0];
+          let node;
+          if (token.startsWith("**")) {
+            node = document.createElement("strong");
+            node.textContent = token.slice(2, -2);
+          } else if (token.startsWith("*")) {
+            node = document.createElement("em");
+            node.textContent = token.slice(1, -1);
+          } else if (token.startsWith("~~")) {
+            node = document.createElement("del");
+            node.textContent = token.slice(2, -2);
+          } else if (token.startsWith("`")) {
+            node = document.createElement("code");
+            node.textContent = token.slice(1, -1);
+          } else {
+            const link = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+            const target = link ? link[2] : token.replace(/[.,;!?)]+$/, "");
+            try {
+              const url = new URL(target);
+              if (!["http:", "https:"].includes(url.protocol))
+                throw new Error("Unsupported link");
+              node = document.createElement("a");
+              node.href = url.href;
+              node.target = "_blank";
+              node.rel = "noopener noreferrer";
+              node.textContent = link ? link[1] : target;
+            } catch {
+              node = document.createTextNode(token);
+            }
+          }
+          parent.append(node);
+          if (
+            !token.startsWith("[") &&
+            /^https?:/.test(token) &&
+            node.tagName === "A"
+          ) {
+            parent.append(
+              document.createTextNode(token.slice(node.textContent.length)),
+            );
+          }
+          offset = match.index + token.length;
+        }
+        parent.append(document.createTextNode(text.slice(offset)));
+      }
+
+      function renderBrief(parent, text) {
+        // Resolve numbered reference links before rendering; all targets still pass
+        // appendInline's HTTP/HTTPS validation and no model HTML is interpreted.
+        const references = new Map();
+        text = text.replace(
+          /^\[(\d+)\]:\s+(https?:\/\/\S+).*$/gm,
+          (_line, id, target) => {
+            references.set(id, target);
+            return "";
+          },
+        );
+        text = text.replace(/\[(\d+)\](?!\()/g, (match, id) =>
+          references.has(id) ? `[${id}](${references.get(id)})` : match,
+        );
+        const lines = text.split("\n");
+        let list = null;
+        let container = parent;
+        let paragraph = null;
+        let hasTitle = false;
+        let hasLead = false;
+        const sectionNames =
+          /^(?:at a glance|key developments|why it matters|what to watch next|sources|conditions|rain\s*&\s*wind|travel notes|weather outlook|temperature|precipitation|wind|forecast|travel advice)$/i;
+        const weatherSections = [
+          [/^(conditions|weather outlook|forecast|temperature)$/i, "☀"],
+          [/^(rain\s*&\s*wind|precipitation)$/i, "☂"],
+          [/^wind$/i, "≋"],
+          [/^(travel notes|travel advice)$/i, "→"],
+        ];
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i].trim();
+          if (!line) {
+            list = null;
+            paragraph = null;
+            continue;
+          }
+          if (/^```/.test(line)) {
+            const code = [];
+            while (i + 1 < lines.length && !/^\s*```/.test(lines[i + 1]))
+              code.push(lines[++i]);
+            if (i + 1 < lines.length) i++;
+            const pre = document.createElement("pre");
+            pre.textContent = code.join("\n");
+            container.append(pre);
+            list = null;
+            paragraph = null;
+            continue;
+          }
+          if (/^(?:-{3,}|\*{3,}|_{3,})$/.test(line)) {
+            container.append(document.createElement("hr"));
+            list = null;
+            paragraph = null;
+            continue;
+          }
+          if (
+            line.startsWith("|") &&
+            /^\s*\|?[\s:|-]+\|\s*$/.test(lines[i + 1] || "")
+          ) {
+            const wrap = document.createElement("div");
+            wrap.className = "table-wrap";
+            const table = document.createElement("table");
+            const row = (value, tag) => {
+              const tr = document.createElement("tr");
+              for (const cell of value.replace(/^\||\|$/g, "").split("|")) {
+                const td = document.createElement(tag);
+                if (tag === "th") td.setAttribute("scope", "col");
+                appendInline(td, cell.trim());
+                tr.append(td);
+              }
+              table.append(tr);
+            };
+            row(line, "th");
+            i++;
+            while (i + 1 < lines.length && lines[i + 1].trim().startsWith("|"))
+              row(lines[++i].trim(), "td");
+            wrap.append(table);
+            container.append(wrap);
+            list = null;
+            paragraph = null;
+            continue;
+          }
+          let heading = line.match(/^(#{1,6})\s+(.+)$/);
+          const plainHeading = line
+            .replace(/^\*\*|\*\*$/g, "")
+            .replace(/:$/, "");
+          if (!heading && sectionNames.test(plainHeading))
+            heading = ["", "##", plainHeading];
+          const item = line.match(/^(?:[-*]|\d+\.)\s+(.+)$/);
+          let node;
+          if (heading) {
+            node = document.createElement(
+              `h${Math.min(heading[1].length + 1, 4)}`,
+            );
+            const name = heading[2]
+              .replace(/\*\*/g, "")
+              .replace(/:$/, "")
+              .trim();
+            if (heading[1].length === 1) {
+              container = parent;
+              hasTitle = true;
+            } else {
+              container = document.createElement("section");
+              container.className = "brief-section";
+              const kinds = {
+                "at a glance": "summary-section",
+                "key developments": "developments-section",
+                "why it matters": "implications-section",
+                "what to watch next": "watch-section",
+              };
+              if (kinds[name.toLowerCase()])
+                container.className += " " + kinds[name.toLowerCase()];
+              if (/^sources$/i.test(name))
+                container.className += " source-section";
+              const weather = weatherSections.find(([pattern]) =>
+                pattern.test(name),
+              );
+              if (weather) {
+                container.className += " weather-section";
+                const icon = document.createElement("span");
+                icon.className = "section-icon";
+                icon.setAttribute("aria-hidden", "true");
+                icon.textContent = weather[1] + "\uFE0E";
+                node.append(icon);
+              }
+              parent.append(container);
+            }
+            appendInline(node, heading[2]);
+            list = null;
+            paragraph = null;
+          } else if (item) {
+            const tag = /^\d/.test(line) ? "ol" : "ul";
+            if (!list || list.tagName.toLowerCase() !== tag) {
+              list = document.createElement(tag);
+              container.append(list);
+            }
+            node = document.createElement("li");
+            appendInline(node, item[1]);
+            list.append(node);
+            paragraph = null;
+            continue;
+          } else {
+            if (paragraph && !line.startsWith("> ")) {
+              paragraph.append(document.createTextNode(" "));
+              appendInline(paragraph, line);
+              continue;
+            }
+            node = document.createElement(
+              line.startsWith("> ") ? "blockquote" : "p",
+            );
+            const isDate = /^(?:\*\*)?As of\b/i.test(line);
+            if (isDate) node.className = "as-of";
+            else if (
+              container === parent &&
+              hasTitle &&
+              !hasLead &&
+              node.tagName.toLowerCase() === "p"
+            ) {
+              node.className = "standfirst";
+              hasLead = true;
+            }
+            appendInline(node, line.replace(/^> /, ""));
+            list = null;
+            paragraph = line.startsWith("> ") || isDate ? null : node;
+          }
+          container.append(node);
+        }
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const query = input.value.trim();
+        if (query) submitRequest(buildChatRequest(query), query);
+      });
+
+      function chooseExample(prompt) {
+        if (busy) return;
+        input.value = prompt;
+        status.textContent = "";
+        status.classList.remove("error");
+        updateInput();
+        input.focus();
+      }
+      document
+        .getElementById("example-politics")
+        .addEventListener("click", () =>
+          chooseExample(
+            "Give me a briefing on today's global political news, focusing on major developments, diplomacy, and what to watch next. Include source links.",
+          ),
+        );
+      document
+        .getElementById("example-tech")
+        .addEventListener("click", () =>
+          chooseExample(
+            "Give me a briefing on this week's artificial intelligence developments: major releases, research, and policy. Explain why they matter and include source links.",
+          ),
+        );
+      document
+        .getElementById("example-weather")
+        .addEventListener("click", () =>
+          chooseExample(
+            "Give me a weather briefing for Los Angeles, California today, with conditions, rain and wind, and practical advice for a day outdoors. Include units and local time.",
+          ),
+        );
+      document
+        .getElementById("follow-implications")
+        .addEventListener("click", () =>
+          submitRequest(
+            "Explain the implications of the latest briefing. Separate evidence from analysis and cite the sources.",
+            "Explain the implications",
+            false,
+          ),
+        );
+      document
+        .getElementById("follow-watch")
+        .addEventListener("click", () =>
+          submitRequest(
+            "What should I watch next based on the latest briefing? Use sources for any scheduled dates and distinguish uncertainty.",
+            "What should I watch next?",
+            false,
+          ),
+        );
+      document.getElementById("follow-save").addEventListener("click", () => {
+        const name = `briefing-${new Date().toISOString().replace(/[:.]/g, "-")}.txt`;
+        submitRequest(
+          `Save the latest briefing, including its sources, to ${name} using the filesystem tool. Confirm success only if the tool succeeds.`,
+          "Save this briefing to workspace",
+          false,
+        );
+      });
+      copyButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(latestBriefing);
+          status.textContent = "Latest response copied.";
+        } catch {
+          status.textContent =
+            "Copy is unavailable in this browser. Use Download instead.";
+        }
+      });
+      downloadButton.addEventListener("click", () => {
+        const url = URL.createObjectURL(
+          new Blob([latestBriefing], { type: "text/plain;charset=utf-8" }),
+        );
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `briefing-${new Date().toISOString().slice(0, 10)}.txt`;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      });
+    </script>
+  </body>
+</html>

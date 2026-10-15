@@ -1,0 +1,101 @@
+{
+  "timestamp": "2026-10-14T08:56:01.574174+00:00",
+  "url": "https://briefly-2ez6etscva-uw.a.run.app",
+  "revision": "briefly-00001-trc",
+  "checks": [
+    {
+      "check": "Public frontend",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "Three MCP connections",
+      "http_status": 200,
+      "passed": true,
+      "body": {
+        "servers": [
+          {
+            "name": "filesystem",
+            "status": "connected",
+            "tool_count": 13
+          },
+          {
+            "name": "tavily",
+            "status": "connected",
+            "tool_count": 2,
+            "mode": "keyless"
+          },
+          {
+            "name": "open-meteo",
+            "status": "connected",
+            "tool_count": 2
+          }
+        ]
+      }
+    },
+    {
+      "check": "Invalid request rejected",
+      "http_status": 422,
+      "passed": true
+    },
+    {
+      "check": "Live NVIDIA /chat contract",
+      "http_status": 200,
+      "passed": true,
+      "body": {
+        "response": "96"
+      }
+    },
+    {
+      "check": "Live filesystem tool and streamed response",
+      "http_status": 200,
+      "passed": true,
+      "body": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-14T08:56:04.301660+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-14T08:56:04.307981+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-14T08:56:05.666043+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running read_text_file.",
+          "timestamp": "2026-10-14T08:56:05.667349+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: read_text_file completed.",
+          "timestamp": "2026-10-14T08:56:05.865612+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-14T08:56:05.873541+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-14T08:56:07.630088+00:00"
+        },
+        {
+          "type": "response",
+          "response": "The file contains:\n\n```\nAssignment 1 workspace\n\nThis folder is the filesystem MCP server's working directory.\nIt can read and write files here. Application code and credentials are outside it.\n```",
+          "message": "Response ready."
+        }
+      ]
+    }
+  ]
+}

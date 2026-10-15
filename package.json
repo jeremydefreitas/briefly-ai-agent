@@ -1,0 +1,16 @@
+{
+  "name": "assignment-1-mcp-servers",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local MCP server dependencies for the Python agent",
+  "overrides": {
+    "tavily-mcp": {
+      "@modelcontextprotocol/sdk": "1.31.0"
+    }
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server-filesystem": "1.0.0",
+    "open-meteo-mcp-server": "2.5.2",
+    "tavily-mcp": "0.2.22"
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "timestamp": "2026-10-15T05:12:57.804851+00:00",
+  "revision": "briefly-00004-4z5",
+  "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "checks": [
+    {
+      "name": "direct",
+      "query": "What is 17 times 19? Answer with only the number; no tools needed.",
+      "http_status": 200,
+      "elapsed_seconds": 0.36,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:12:57.986690+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:12:57.994284+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:12:58.282882+00:00"
+        },
+        {
+          "type": "response",
+          "response": "323",
+          "message": "Response ready."
+        }
+      ],
+      "response": "323",
+      "passed": true
+    },
+    {
+      "name": "filesystem",
+      "query": "You must call the read_file tool with path notes.txt before answering. Return its exact contents. Do not guess or use prior knowledge. Do not modify files.",
+      "http_status": 200,
+      "elapsed_seconds": 2.59,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:12:58.347146+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:12:58.353799+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:12:59.563571+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running list_directory_with_sizes.",
+          "timestamp": "2026-10-15T05:12:59.565006+00:00",
+          "server": "filesystem",
+          "tool": "list_directory_with_sizes"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: list_directory_with_sizes completed.",
+          "timestamp": "2026-10-15T05:12:59.842254+00:00",
+          "server": "filesystem",
+          "tool": "list_directory_with_sizes"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:12:59.857227+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:13:00.304185+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running read_file.",
+          "timestamp": "2026-10-15T05:13:00.305647+00:00",
+          "server": "filesystem",
+          "tool": "read_file"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: read_file completed.",
+          "timestamp": "2026-10-15T05:13:00.315178+00:00",
+          "server": "filesystem",
+          "tool": "read_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:13:00.321543+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:13:00.882508+00:00"
+        },
+        {
+          "type": "response",
+          "response": "The exact contents of /app/data/notes.txt are:\n\n```\nAssignment 1 workspace\n\nThis folder is the filesystem MCP server's working directory.\nIt can read and write files here. Application code and credentials are outside it.\n```",
+          "message": "Response ready."
+        }
+      ],
+      "response": "The exact contents of /app/data/notes.txt are:\n\n```\nAssignment 1 workspace\n\nThis folder is the filesystem MCP server's working directory.\nIt can read and write files here. Application code and credentials are outside it.\n```",
+      "passed": true
+    }
+  ],
+  "mcp_status": {
+    "servers": [
+      {
+        "name": "filesystem",
+        "status": "connected",
+        "tool_count": 13
+      },
+      {
+        "name": "tavily",
+        "status": "connected",
+        "tool_count": 2,
+        "mode": "keyless"
+      },
+      {
+        "name": "open-meteo",
+        "status": "connected",
+        "tool_count": 2
+      }
+    ]
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "timestamp": "2026-10-15T03:42:03.714366+00:00",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "method": "Live NVIDIA model via actual /chat route and real stdio MCP transport. Fault server exists only in this verification app instance. No production server/config is modified.",
+  "checks": [
+    {
+      "mode": "invalid-json",
+      "stage": "fault",
+      "query": "Call fault_probe to get the test service status. If it fails, explain that you could not retrieve the status.",
+      "session_id": "verification-invalid-json",
+      "http_status": 200,
+      "body": {
+        "response": "I was unable to retrieve the test service status — the `fault_probe` tool failed to respond."
+      },
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T03:42:04.238056+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:42:04.242481+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:42:10.927222+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "fault-test-invalid-json: running fault_probe.",
+          "timestamp": "2026-10-15T03:42:10.928851+00:00",
+          "server": "fault-test-invalid-json",
+          "tool": "fault_probe"
+        },
+        {
+          "type": "tool_error",
+          "message": "fault-test-invalid-json: fault_probe failed.",
+          "timestamp": "2026-10-15T03:42:12.931259+00:00",
+          "server": "fault-test-invalid-json",
+          "tool": "fault_probe"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:42:12.938562+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:42:13.819428+00:00"
+        }
+      ],
+      "outcome": "passed",
+      "provider_errors": []
+    },
+    {
+      "mode": "invalid-json",
+      "stage": "recovery",
+      "query": "Read notes.txt using the filesystem tool and quote its first line.",
+      "session_id": "verification-invalid-json",
+      "http_status": 200,
+      "body": {
+        "response": "The first line of `notes.txt` is:\n\n> **Assignment 1 workspace**"
+      },
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T03:42:13.822432+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:42:13.825878+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:42:22.313006+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running read_text_file.",
+          "timestamp": "2026-10-15T03:42:22.314368+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: read_text_file completed.",
+          "timestamp": "2026-10-15T03:42:22.360061+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T03:42:22.363019+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T03:42:24.360362+00:00"
+        }
+      ],
+      "outcome": "passed",
+      "provider_errors": []
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "node",
+      "args": ["node_modules/@modelcontextprotocol/server-filesystem/dist/index.js", "data"],
+      "tool_filter": {"blocked_tool_names": ["read_media_file"]}
+    },
+    "tavily": {
+      "command": "node",
+      "args": ["node_modules/tavily-mcp/build/index.js"],
+      "env": ["TAVILY_API_KEY"],
+      "tool_filter": {"allowed_tool_names": ["tavily_search", "tavily_extract"]}
+    },
+    "open-meteo": {
+      "command": "node",
+      "args": ["node_modules/open-meteo-mcp-server/dist/index.js"],
+      "tool_filter": {"allowed_tool_names": ["geocoding", "weather_forecast"]}
+    }
+  }
+}

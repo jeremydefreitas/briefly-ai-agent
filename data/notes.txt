@@ -1,0 +1,4 @@
+Assignment 1 workspace
+
+This folder is the filesystem MCP server's working directory.
+It can read and write files here. Application code and credentials are outside it.

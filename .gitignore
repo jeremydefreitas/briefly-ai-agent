@@ -1,0 +1,28 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+
+# Dependencies, caches, and build artifacts
+.venv/
+node_modules/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+tmp/
+
+# Local editor and operating-system files
+.DS_Store
+.idea/
+.vscode/
+
+# Local assignment handouts; not application source
+/Assignment_1_Description.pdf
+/docs/Assignment_1_Description.pdf
+
+# Agent-generated workspace files; retain only the sample
+/data/*
+!/data/notes.txt

@@ -1,0 +1,26 @@
+{
+  "verified_at": "2026-10-15T04:42:16.050466+00:00",
+  "project": "jd-assignment1-599",
+  "region": "us-west1",
+  "service": "briefly",
+  "image": "us-west1-docker.pkg.dev/jd-assignment1-599/assignment-1/briefly@sha256:ee5235e369d565530d8774606d0e868412beee7a56867d0e04799f5912edea0b",
+  "url": "https://briefly-2ez6etscva-uw.a.run.app",
+  "revision": "briefly-00002-ds6",
+  "conditions": [
+    {
+      "lastTransitionTime": "2026-10-15T04:42:14.593521Z",
+      "status": "True",
+      "type": "Ready"
+    },
+    {
+      "lastTransitionTime": "2026-10-15T04:42:00.147965Z",
+      "status": "True",
+      "type": "ConfigurationsReady"
+    },
+    {
+      "lastTransitionTime": "2026-10-15T04:42:14.564376Z",
+      "status": "True",
+      "type": "RoutesReady"
+    }
+  ]
+}

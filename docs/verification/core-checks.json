@@ -1,0 +1,104 @@
+{
+  "timestamp": "2026-10-13T05:43:18.235765+00:00",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "method": "In-process HTTP requests to the actual FastAPI /chat route; live NVIDIA inference and real MCP servers. The callback wrapper only records activity; it does not replace model or tool results.",
+  "server_status_before_checks": [
+    {
+      "name": "filesystem",
+      "status": "connected",
+      "tool_count": 13
+    },
+    {
+      "name": "tavily",
+      "status": "connected",
+      "tool_count": 2,
+      "mode": "keyless"
+    }
+  ],
+  "checks": [
+    {
+      "check": "no-tool",
+      "query": "What is 12 × 8?",
+      "session_id": "verification-no-tool",
+      "http_status": 200,
+      "body": {
+        "response": "12 × 8 = 96"
+      },
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-13T05:43:12.554687+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:43:12.557817+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:43:13.519735+00:00"
+        }
+      ],
+      "outcome": "passed",
+      "review": "Correct arithmetic answer, with zero MCP tool calls while both MCP servers were connected."
+    },
+    {
+      "check": "filesystem",
+      "query": "Read notes.txt and summarize it.",
+      "session_id": "verification-filesystem",
+      "http_status": 200,
+      "body": {
+        "response": "The file `notes.txt` contains a brief note indicating that this folder serves as the working directory for the filesystem MCP server. It can read and write files here, while application code and credentials are stored outside this directory."
+      },
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-13T05:43:13.522107+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:43:13.524547+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:43:16.873677+00:00"
+        },
+        {
+          "type": "tool_start",
+          "message": "filesystem: running read_text_file.",
+          "timestamp": "2026-10-13T05:43:16.875356+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "tool_end",
+          "message": "filesystem: read_text_file completed.",
+          "timestamp": "2026-10-13T05:43:16.918730+00:00",
+          "server": "filesystem",
+          "tool": "read_text_file"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-13T05:43:16.921032+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-13T05:43:18.210401+00:00"
+        }
+      ],
+      "outcome": "passed",
+      "review": "Observed real filesystem read_text_file start and successful completion. Reviewed the answer against data/notes.txt: it accurately describes the working directory, read/write access, and separation from application code and credentials."
+    }
+  ],
+  "filesystem_source": {
+    "path": "data/notes.txt",
+    "content": "Assignment 1 workspace\n\nThis folder is the filesystem MCP server's working directory.\nIt can read and write files here. Application code and credentials are outside it.\n"
+  }
+}

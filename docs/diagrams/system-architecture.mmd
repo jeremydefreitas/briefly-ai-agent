@@ -1,0 +1,23 @@
+flowchart TB
+    subgraph CloudRun[Cloud Run: one Python worker, Node MCP subprocesses]
+        API[FastAPI POST /chat or /chat/stream] --> Client[AgentClient: session lookup and per-session lock]
+        Client <--> Memory[SDK SQLiteSession: in-memory conversation history]
+        subgraph AgentGraph[Agents SDK state and execution graph]
+            Entry[Runner entry] --> Model[Model request]
+            Model --> Decide{Tool call or final answer?}
+            Decide -->|final| Final[Return answer]
+            Decide -->|tool calls| ToolStep[Execute tools and append results]
+            ToolStep --> Model
+        end
+        Client --> Entry
+        Final --> API
+        ToolStep <--> Wrapper[ObservedMCPServer / SDK MCP client]
+        Wrapper <-->|tools/list and tools/call over stdio| Files[Filesystem MCP: data directory]
+        Wrapper <-->|tools/list and tools/call over stdio| Search[Tavily MCP: search and extract]
+        Wrapper <-->|tools/list and tools/call over stdio| Weather[Open-Meteo MCP: geocoding and forecast]
+    end
+    User[Browser or API caller] -->|query and session_id| API
+    API -->|final response or activity stream| User
+    Model <-->|OpenAI-compatible Chat Completions| NIM[NVIDIA NIM cloud model]
+    Search <--> Tavily[Tavily web API]
+    Weather <--> Meteo[Open-Meteo web APIs]

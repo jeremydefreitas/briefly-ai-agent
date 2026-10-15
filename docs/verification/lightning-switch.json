@@ -1,0 +1,87 @@
+{
+  "timestamp": "2026-10-15T05:12:44.336473+00:00",
+  "revision": "briefly-00004-4z5",
+  "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "checks": [
+    {
+      "name": "direct",
+      "query": "What is 17 times 19? Answer with only the number; no tools needed.",
+      "http_status": 200,
+      "elapsed_seconds": 0.81,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:12:44.592130+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:12:44.632074+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:12:45.341450+00:00"
+        },
+        {
+          "type": "response",
+          "response": "323",
+          "message": "Response ready."
+        }
+      ],
+      "response": "323",
+      "passed": true
+    },
+    {
+      "name": "filesystem",
+      "query": "Read notes.txt using the filesystem tool and quote its first line. Do not modify files.",
+      "http_status": 200,
+      "elapsed_seconds": 0.38,
+      "events": [
+        {
+          "type": "request_start",
+          "message": "Message received.",
+          "timestamp": "2026-10-15T05:12:45.403584+00:00"
+        },
+        {
+          "type": "model_start",
+          "message": "Agent is asking the model for the next step.",
+          "timestamp": "2026-10-15T05:12:45.410979+00:00"
+        },
+        {
+          "type": "model_end",
+          "message": "Model response received.",
+          "timestamp": "2026-10-15T05:12:45.727491+00:00"
+        },
+        {
+          "type": "response",
+          "response": "The first line of notes.txt is: 5 Minutes // marker (this is a test)",
+          "message": "Response ready."
+        }
+      ],
+      "response": "The first line of notes.txt is: 5 Minutes // marker (this is a test)",
+      "passed": false
+    }
+  ],
+  "mcp_status": {
+    "servers": [
+      {
+        "name": "filesystem",
+        "status": "connected",
+        "tool_count": 13
+      },
+      {
+        "name": "tavily",
+        "status": "connected",
+        "tool_count": 2,
+        "mode": "keyless"
+      },
+      {
+        "name": "open-meteo",
+        "status": "connected",
+        "tool_count": 2
+      }
+    ]
+  }
+}

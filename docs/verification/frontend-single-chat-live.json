@@ -1,0 +1,102 @@
+{
+  "timestamp": "2026-10-15T05:03:17.957Z",
+  "url": "https://briefly-2ez6etscva-uw.a.run.app",
+  "revision": "briefly-00003-2xl",
+  "method": "Actual Chrome browser example prefill/edit/send through the deployed chat; real NVIDIA and MCP activity; no intercepted responses.",
+  "query": "Give me a weather briefing for Los Angeles, California today, with conditions, rain and wind, and practical advice for a day outdoors. Include units and local time. Keep it under 200 words.",
+  "events": [
+    {
+      "type": "request_start",
+      "message": "Message received.",
+      "timestamp": "2026-10-15T05:02:49.844025+00:00"
+    },
+    {
+      "type": "model_start",
+      "message": "Agent is asking the model for the next step.",
+      "timestamp": "2026-10-15T05:02:49.858509+00:00"
+    },
+    {
+      "type": "model_end",
+      "message": "Model response received.",
+      "timestamp": "2026-10-15T05:02:58.312090+00:00"
+    },
+    {
+      "type": "tool_start",
+      "message": "open-meteo: running geocoding.",
+      "timestamp": "2026-10-15T05:02:58.313700+00:00",
+      "server": "open-meteo",
+      "tool": "geocoding"
+    },
+    {
+      "type": "tool_end",
+      "message": "open-meteo: geocoding completed.",
+      "timestamp": "2026-10-15T05:02:59.029143+00:00",
+      "server": "open-meteo",
+      "tool": "geocoding"
+    },
+    {
+      "type": "model_start",
+      "message": "Agent is asking the model for the next step.",
+      "timestamp": "2026-10-15T05:02:59.036005+00:00"
+    },
+    {
+      "type": "model_end",
+      "message": "Model response received.",
+      "timestamp": "2026-10-15T05:03:07.684917+00:00"
+    },
+    {
+      "type": "tool_start",
+      "message": "open-meteo: running weather_forecast.",
+      "timestamp": "2026-10-15T05:03:07.686882+00:00",
+      "server": "open-meteo",
+      "tool": "weather_forecast"
+    },
+    {
+      "type": "tool_end",
+      "message": "open-meteo: weather_forecast completed.",
+      "timestamp": "2026-10-15T05:03:08.331031+00:00",
+      "server": "open-meteo",
+      "tool": "weather_forecast"
+    },
+    {
+      "type": "model_start",
+      "message": "Agent is asking the model for the next step.",
+      "timestamp": "2026-10-15T05:03:08.336962+00:00"
+    },
+    {
+      "type": "model_end",
+      "message": "Model response received.",
+      "timestamp": "2026-10-15T05:03:17.883371+00:00"
+    },
+    {
+      "type": "response",
+      "response": "# Weather Briefing – Los Angeles, CA  \n**As of 2026-10-14 22:00 PDT**\n\n**Summary:** Clear, mild night (64 °F) with light wind; today will be sunny and warm, topping out near 84 °F with no rain expected.\n\n---\n\n## Conditions\n| Parameter | Value |\n|---|---|\n| **Temperature** | 64 °F (feels like 65 °F) |\n| **Humidity** | 77 % |\n| **Sky** | Clear (WMO code 0) |\n| **Wind** | 2.5 mph from ENE (72°) |\n| **Visibility** | 16.9 mi (89,239 ft) |\n| **Sunrise / Sunset** | 06:57 / 18:19 PDT |\n\n---\n\n## Rain & Wind\n| Forecast (today) | Value |\n|---|---|\n| **High / Low** | 83.8 °F / 53.7 °F |\n| **Precipitation** | 0 in (0 % chance) |\n| **Max sustained wind** | 8 mph |\n| **Peak gust** | 9.8 mph |\n| **Dominant wind direction** | NW (316°) |\n\n---\n\n## Travel Notes\n- **No rain** — leave the umbrella at home.  \n- **UV index** will be high midday; wear sunscreen, hat, and sunglasses if outdoors for extended periods.  \n- **Light winds** (under 10 mph) — no impact on driving, cycling, or waterfront activities.  \n- **Cool morning (low 50s)** — bring a light jacket for early starts; shed it by late morning.  \n- **Excellent visibility** — good day for hiking, photography, or rooftop dining.\n\n---\n\n## Sources\n- Open-Meteo forecast (geocoded for Los Angeles, 34.052° N, 118.244° W), data generated 2026-10-14 22:00 PDT.",
+      "message": "Response ready."
+    }
+  ],
+  "snapshot": {
+    "status": "Completed in 28s · Ask a follow-up.",
+    "tags": [
+      {
+        "text": "✓Location resolved",
+        "state": "live-tag done"
+      },
+      {
+        "text": "✓Forecast retrieved",
+        "state": "live-tag done"
+      },
+      {
+        "text": "✓Response ready",
+        "state": "live-tag done"
+      }
+    ],
+    "headings": [
+      "Weather Briefing – Los Angeles, CA",
+      "☀︎Conditions",
+      "☂︎Rain & Wind",
+      "→︎Travel Notes",
+      "Sources"
+    ]
+  },
+  "browserErrors": []
+}

@@ -1,0 +1,36 @@
+{
+  "project": "jd-assignment1-599",
+  "region": "us-west1",
+  "service": "csci599-a1",
+  "service_account": "assignment-1-runtime@jd-assignment1-599.iam.gserviceaccount.com",
+  "image_tag": "us-west1-docker.pkg.dev/jd-assignment1-599/assignment-1/briefly:ui-20261015-051636",
+  "image": "us-west1-docker.pkg.dev/jd-assignment1-599/assignment-1/briefly@sha256:5e46680534df92cd7a2be195b934d6aa54769e189e866a0410ece7169f213edb",
+  "secret_references": [
+    "OPENAI_API_KEY=assignment-1-nim-key:1"
+  ],
+  "deploy_command": [
+    "gcloud",
+    "run",
+    "deploy",
+    "csci599-a1",
+    "--image=us-west1-docker.pkg.dev/jd-assignment1-599/assignment-1/briefly@sha256:5e46680534df92cd7a2be195b934d6aa54769e189e866a0410ece7169f213edb",
+    "--region=us-west1",
+    "--service-account=assignment-1-runtime@jd-assignment1-599.iam.gserviceaccount.com",
+    "--port=8080",
+    "--cpu=1",
+    "--memory=512Mi",
+    "--min-instances=0",
+    "--max-instances=1",
+    "--concurrency=8",
+    "--timeout=600",
+    "--execution-environment=gen2",
+    "--cpu-throttling",
+    "--session-affinity",
+    "--allow-unauthenticated",
+    "--env-vars-file=docs/deployment/environment.json",
+    "--set-secrets=OPENAI_API_KEY=assignment-1-nim-key:1",
+    "--project=jd-assignment1-599",
+    "--account=jeremyadefreitas@gmail.com",
+    "--quiet"
+  ]
+}

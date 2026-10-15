@@ -1,0 +1,36 @@
+{
+  "spec": {
+    "template": {
+      "metadata": {
+        "annotations": {
+          "autoscaling.knative.dev/maxScale": "1",
+          "run.googleapis.com/client-name": "gcloud",
+          "run.googleapis.com/client-version": "517.0.0",
+          "run.googleapis.com/cpu-throttling": "true",
+          "run.googleapis.com/execution-environment": "gen2",
+          "run.googleapis.com/sessionAffinity": "true",
+          "run.googleapis.com/startup-cpu-boost": "true"
+        },
+        "labels": {
+          "client.knative.dev/nonce": "jawdyzdmce",
+          "run.googleapis.com/startupProbeType": "Default"
+        }
+      },
+      "spec": {
+        "containerConcurrency": 8,
+        "serviceAccountName": "assignment-1-runtime@jd-assignment1-599.iam.gserviceaccount.com",
+        "timeoutSeconds": 600
+      }
+    }
+  },
+  "status": {
+    "latestReadyRevisionName": "csci599-a1-00001-p9d",
+    "traffic": [
+      {
+        "latestRevision": true,
+        "percent": 100,
+        "revisionName": "csci599-a1-00001-p9d"
+      }
+    ]
+  }
+}
